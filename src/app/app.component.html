@@ -1,0 +1,98 @@
+<div class="app-shell" *ngIf="(pages$ | async) as pages">
+  <app-header
+    [project]="project$ | async"
+    (toggleDataSources)="onToggleDataSources()"
+    (publish)="onPublish()"
+    (saveDraft)="onSaveDraft()"
+    (preview)="onPreview()"
+  ></app-header>
+
+  <div class="app-body">
+    <app-side-nav
+      [items]="sideNavItems"
+      [activeItemId]="activeSideItemId"
+      (itemSelected)="onNavItemSelected($event)"
+    ></app-side-nav>
+
+    <div class="app-workspace">
+      <div class="workspace-left">
+        <app-component-library
+          *ngIf="activePanelId === 'library'"
+          [components]="componentLibrary"
+          (addComponent)="onAddComponent($event)"
+        ></app-component-library>
+
+        <div class="placeholder-panel" *ngIf="activePanelId === 'models'">
+          <h3>Modelos em breve</h3>
+          <p>
+            Centralize visões recorrentes em modelos compartilháveis. Configure dimensões fixas,
+            filtros padrão e métricas calculadas.
+          </p>
+        </div>
+
+        <div class="placeholder-panel" *ngIf="activePanelId === 'settings'">
+          <h3>Configurações</h3>
+          <p>
+            Ajuste parâmetros do dashboard como tema visual, permissões e regras de publicação.
+          </p>
+        </div>
+      </div>
+
+      <ng-container *ngIf="(activePage$ | async) as activePage">
+        <div class="workspace-center">
+          <app-editor-toolbar
+            [viewMode]="viewMode"
+            (deviceModeChange)="onDeviceModeChange($event)"
+            (createPage)="onAddPage()"
+            (openDataSources)="onToggleDataSources()"
+          ></app-editor-toolbar>
+
+          <app-page-tabs
+            [pages]="pages"
+            [activePageId]="activePage?.id ?? ''"
+            (selectPage)="onPageSelected($event)"
+            (addPage)="onAddPage()"
+            (duplicatePage)="onDuplicatePage($event)"
+            (renamePage)="onRenamePage($event)"
+          ></app-page-tabs>
+
+          <app-canvas
+            [page]="activePage"
+            [viewMode]="viewMode"
+            [selectedComponent]="selectedComponent$ | async"
+            (selectComponent)="onComponentSelected($event)"
+            (componentMoved)="onComponentMoved($event)"
+          ></app-canvas>
+        </div>
+      </ng-container>
+
+      <div class="workspace-right">
+        <app-inspector
+          [component]="selectedComponent$ | async"
+          [dataSources]="dataSources$ | async"
+          (updateComponent)="onComponentUpdated($event)"
+        ></app-inspector>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-data-source-drawer
+  *ngIf="showDataSourcesDrawer"
+  [dataSources]="dataSources$ | async"
+  (close)="onCloseDataSources()"
+  (create)="onDataSourceCreated($event)"
+  (remove)="onDataSourceRemoved($event)"
+></app-data-source-drawer>
+
+<app-preview-overlay
+  *ngIf="showPreview"
+  [project]="project$ | async"
+  [pages]="(pages$ | async) ?? []"
+  [dataSources]="dataSources$ | async"
+  [activePageId]="(activePageId$ | async) ?? ''"
+  [viewMode]="viewMode"
+  (close)="onClosePreview()"
+  (selectPage)="onPreviewSelectPage($event)"
+  (changeDevice)="onDeviceModeChange($event)"
+></app-preview-overlay>

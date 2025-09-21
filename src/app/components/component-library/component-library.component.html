@@ -1,0 +1,50 @@
+<section class="library">
+  <div class="library__header">
+    <h2>Biblioteca</h2>
+    <p>Adicione componentes pré-configurados inspirados no Looker Studio.</p>
+  </div>
+
+  <div class="library__search">
+    <span class="material-symbols-outlined">search</span>
+    <input
+      type="text"
+      placeholder="Buscar componentes"
+      [(ngModel)]="searchTerm"
+    />
+  </div>
+
+  <div class="library__categories">
+    <button
+      *ngFor="let category of categories"
+      type="button"
+      class="chip"
+      [class.chip--active]="category === activeCategory"
+      (click)="onSelectCategory(category)"
+    >
+      {{ category === 'todos' ? 'Todos' : (category | titlecase) }}
+    </button>
+  </div>
+
+  <div class="library__list">
+    <article
+      class="library-card"
+      *ngFor="let component of filteredComponents"
+      (click)="onAddComponent(component)"
+    >
+      <div class="library-card__icon">
+        <span class="material-symbols-outlined">{{ component.icon }}</span>
+      </div>
+      <div class="library-card__content">
+        <h3>{{ component.name }}</h3>
+        <p>{{ component.description }}</p>
+      </div>
+      <button
+        type="button"
+        class="add-button"
+        (click)="onAddComponent(component); $event.stopPropagation()"
+      >
+        <span class="material-symbols-outlined">add</span>
+      </button>
+    </article>
+  </div>
+</section>
