@@ -1,0 +1,96 @@
+<div class="preview-overlay">
+  <div class="preview-overlay__backdrop" (click)="onClose()" aria-hidden="true"></div>
+
+  <div class="preview-overlay__panel">
+    <header class="preview-overlay__header">
+      <div class="preview-overlay__title">
+        <span class="badge">Pré-visualização</span>
+        <h2>{{ project?.name || 'Dashboard sem título' }}</h2>
+        <p class="meta" *ngIf="project">
+          Pasta {{ project.folder }} • Atualizado em {{ project.lastUpdated | date: 'dd/MM/yyyy HH:mm' }}
+        </p>
+      </div>
+
+      <div class="preview-overlay__header-actions">
+        <span class="status-pill" [ngClass]="statusClass">{{ statusLabel }}</span>
+        <button
+          type="button"
+          class="icon-button"
+          (click)="onClose()"
+          aria-label="Fechar pré-visualização"
+        >
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="preview-overlay__controls" *ngIf="pages.length">
+      <nav class="preview-pages">
+        <button
+          type="button"
+          *ngFor="let page of pages"
+          class="preview-pages__item"
+          [class.preview-pages__item--active]="page.id === (activePage?.id || '')"
+          (click)="onSelectPage(page.id)"
+        >
+          {{ page.name }}
+        </button>
+      </nav>
+
+      <div class="preview-devices">
+        <button
+          type="button"
+          *ngFor="let device of deviceModes"
+          class="preview-devices__item"
+          [class.preview-devices__item--active]="device.id === viewMode"
+          (click)="onChangeDevice(device.id)"
+        >
+          <span class="material-symbols-outlined">{{ device.icon }}</span>
+          {{ device.label }}
+        </button>
+      </div>
+    </div>
+
+    <section class="preview-overlay__canvas" *ngIf="activePage as page">
+      <div class="preview-canvas" [ngClass]="'preview-canvas--' + viewMode">
+        <div class="preview-canvas__grid"></div>
+
+        <article
+          class="preview-card"
+          *ngFor="let component of page.components"
+          [ngStyle]="getComponentStyle(component)"
+        >
+          <header class="preview-card__header">
+            <span class="preview-card__type">{{ component.type | titlecase }}</span>
+            <ng-container *ngIf="resolveDataSourceName(component.data.dataSourceId) as sourceName">
+              <span class="data-source">Fonte: {{ sourceName }}</span>
+            </ng-container>
+          </header>
+          <div class="preview-card__body">
+            <h3>{{ component.title }}</h3>
+            <p *ngIf="component.subtitle">{{ component.subtitle }}</p>
+            <div class="preview-card__chips">
+              <span class="chip" *ngIf="component.data.metric">Métrica: {{ component.data.metric }}</span>
+              <span class="chip" *ngIf="component.data.dimension"
+                >Dimensão: {{ component.data.dimension }}</span
+              >
+              <span class="chip" *ngIf="component.data.comparisonMetric"
+                >Comparação: {{ component.data.comparisonMetric }}</span
+              >
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="preview-overlay__summary" *ngIf="dataSources?.length">
+      <h3>Fontes de dados conectadas</h3>
+      <div class="preview-overlay__sources">
+        <div class="source-pill" *ngFor="let source of dataSources">
+          <span class="source-pill__name">{{ source.name }}</span>
+          <span class="source-pill__meta">{{ source.type | uppercase }} • {{ source.refresh | titlecase }}</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

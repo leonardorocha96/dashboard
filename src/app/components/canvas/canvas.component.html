@@ -1,0 +1,28 @@
+<div class="canvas" [ngClass]="canvasClass" (click)="onCanvasClick()">
+  <div class="canvas__grid"></div>
+
+  <div
+    *ngFor="let component of page?.components || []"
+    class="canvas__component"
+    cdkDrag
+    [cdkDragFreeDragPosition]="{ x: component.position.x, y: component.position.y }"
+    [ngClass]="{ 'canvas__component--selected': component.id === selectedComponent?.id }"
+    [ngStyle]="getComponentStyle(component)"
+    (cdkDragEnded)="onDragEnded(component, $event)"
+    (click)="onSelectComponent(component, $event)"
+  >
+    <header class="component-card__header">
+      <span class="component-card__type">{{ component.type | titlecase }}</span>
+      <span class="material-symbols-outlined drag-handle">drag_indicator</span>
+    </header>
+    <div class="component-card__body">
+      <h4>{{ component.title }}</h4>
+      <p *ngIf="component.subtitle">{{ component.subtitle }}</p>
+      <div class="component-card__data">
+        <span class="data-chip" *ngIf="component.data.metric">Métrica: {{ component.data.metric }}</span>
+        <span class="data-chip" *ngIf="component.data.dimension">Dimensão: {{ component.data.dimension }}</span>
+        <span class="data-chip" *ngIf="component.data.dataSourceId">Fonte: {{ component.data.dataSourceId }}</span>
+      </div>
+    </div>
+  </div>
+</div>
