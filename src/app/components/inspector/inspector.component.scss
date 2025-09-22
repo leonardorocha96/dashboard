@@ -1,0 +1,101 @@
+.inspector {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inspector h2 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--color-navy);
+}
+
+.inspector__subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.inspector__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-section {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-section h3 {
+  margin: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+input,
+select {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: 8px 10px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+input[type='color'] {
+  padding: 0;
+  height: 36px;
+}
+
+.color-row {
+  display: flex;
+  gap: 12px;
+}
+
+.color-row label {
+  flex: 1 1 0;
+}
+
+.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox input {
+  width: auto;
+}
+
+.inspector__empty {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-border);
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--color-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.inspector__empty .material-symbols-outlined {
+  font-size: 40px;
+  color: var(--color-navy);
+  opacity: 0.4;
+}

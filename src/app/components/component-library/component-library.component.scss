@@ -1,0 +1,125 @@
+.library {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.library__header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--color-navy);
+}
+
+.library__header p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.library__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+}
+
+.library__search input {
+  flex: 1 1 auto;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  outline: none;
+}
+
+.library__categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: #fff;
+  font-size: 13px;
+  color: var(--color-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.chip--active {
+  background: rgba(46, 196, 182, 0.12);
+  color: var(--color-navy);
+  border-color: rgba(46, 196, 182, 0.4);
+}
+
+.library__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.library-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.library-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13, 27, 42, 0.12);
+}
+
+.library-card__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: rgba(46, 196, 182, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-teal);
+}
+
+.library-card__content h3 {
+  margin: 0 0 4px;
+  font-size: 16px;
+  color: var(--color-navy);
+}
+
+.library-card__content p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-muted);
+  line-height: 1.4;
+}
+
+.add-button {
+  background: rgba(46, 196, 182, 0.12);
+  color: var(--color-teal);
+  border: none;
+  border-radius: var(--radius-md);
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.add-button:hover {
+  background: rgba(46, 196, 182, 0.2);
+}

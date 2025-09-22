@@ -1,0 +1,55 @@
+<div class="canvas" [ngClass]="canvasClass" (click)="onCanvasClick()">
+  <div class="canvas__grid"></div>
+
+  <div
+    *ngFor="let component of page?.components || []"
+    class="canvas__component"
+    cdkDrag
+    [cdkDragFreeDragPosition]="{ x: component.position.x, y: component.position.y }"
+    [ngClass]="{ 'canvas__component--selected': component.id === selectedComponent?.id }"
+    [ngStyle]="getComponentStyle(component)"
+    (cdkDragEnded)="onDragEnded(component, $event)"
+    (click)="onSelectComponent(component, $event)"
+  >
+    <ng-container *ngIf="resolveBinding(component) as binding">
+      <header class="component-card__header">
+        <span class="component-card__type">{{ component.type | titlecase }}</span>
+        <span class="material-symbols-outlined drag-handle">drag_indicator</span>
+      </header>
+      <div class="component-card__body">
+        <div class="component-card__text">
+          <h4>{{ component.title }}</h4>
+          <p *ngIf="component.subtitle">{{ component.subtitle }}</p>
+
+          <div class="component-card__data">
+            <span class="data-chip" *ngIf="getDataSourceLabel(binding) as sourceLabel"
+              >Fonte: {{ sourceLabel }}</span
+            >
+            <span class="data-chip" *ngIf="getCollectionLabel(binding) as collectionLabel"
+              >Conjunto: {{ collectionLabel }}</span
+            >
+            <span class="data-chip" *ngIf="getFieldLabel(binding, component.data.metric) as metricLabel"
+              >Métrica: {{ metricLabel }}</span
+            >
+            <span class="data-chip" *ngIf="getFieldLabel(binding, component.data.dimension) as dimensionLabel"
+              >Dimensão: {{ dimensionLabel }}</span
+            >
+            <span
+              class="data-chip"
+              *ngIf="getFieldLabel(binding, component.data.comparisonMetric) as comparisonLabel"
+              >Comparação: {{ comparisonLabel }}</span
+            >
+          </div>
+        </div>
+
+        <app-visualization-card
+          class="component-card__visualization"
+          [component]="component"
+          [dataSource]="binding.dataSource"
+          [collection]="binding.collection"
+          mode="builder"
+        ></app-visualization-card>
+      </div>
+    </ng-container>
+  </div>
+</div>

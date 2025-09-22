@@ -1,0 +1,243 @@
+.visualization-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  color: var(--color-navy);
+}
+
+.visualization-card--builder {
+  font-size: 0.95rem;
+}
+
+.visualization-card__kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  background: linear-gradient(160deg, rgba(46, 196, 182, 0.12), rgba(46, 196, 182, 0.05));
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.kpi-metric__label {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+.kpi-metric__value {
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.kpi-comparison {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kpi-comparison__delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--accent);
+}
+
+.kpi-comparison__delta--positive {
+  color: #2ec4b6;
+}
+
+.kpi-comparison__delta--negative {
+  color: #ef476f;
+}
+
+.kpi-comparison__caption {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.kpi-sparkline {
+  height: 56px;
+}
+
+.sparkline {
+  width: 100%;
+  height: 100%;
+}
+
+.visualization-card__comparativo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  align-items: flex-end;
+  padding: 18px;
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(13, 27, 42, 0.06), rgba(13, 27, 42, 0.02));
+}
+
+.comparativo__metric {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.comparativo__label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(13, 27, 42, 0.6);
+}
+
+.comparativo__value {
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.comparativo__delta {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(13, 27, 42, 0.06);
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.comparativo__delta--positive {
+  background: rgba(46, 196, 182, 0.16);
+  color: #0d7660;
+}
+
+.comparativo__delta--negative {
+  background: rgba(239, 71, 111, 0.16);
+  color: #c9184a;
+}
+
+.visualization-card__chart {
+  flex: 1 1 auto;
+  min-height: 160px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: inset 0 0 0 1px rgba(13, 27, 42, 0.06);
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+}
+
+.visualization-card__table {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(13, 27, 42, 0.08);
+}
+
+.visualization-card__table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table__th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(13, 27, 42, 0.55);
+  border-bottom: 1px solid rgba(13, 27, 42, 0.08);
+}
+
+.table__th--right {
+  text-align: right;
+}
+
+.table__cell {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(13, 27, 42, 0.06);
+}
+
+.table__cell--right {
+  text-align: right;
+}
+
+.table__dimension {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.table__dimension--pivot {
+  padding-left: 12px;
+  border-left: 3px solid var(--accent);
+}
+
+.table__name {
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.table__progress {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(13, 27, 42, 0.08);
+  overflow: hidden;
+}
+
+.table__progress-bar {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.table__value {
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.table__value--secondary {
+  color: rgba(13, 27, 42, 0.7);
+}
+
+.visualization-card__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  color: rgba(13, 27, 42, 0.65);
+  padding: 16px;
+}
+
+.visualization-card__empty .material-symbols-outlined {
+  font-size: 28px;
+  color: rgba(13, 27, 42, 0.35);
+}
+
+@media (max-width: 768px) {
+  .visualization-card__comparativo {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .comparativo__delta {
+    justify-content: space-between;
+  }
+}

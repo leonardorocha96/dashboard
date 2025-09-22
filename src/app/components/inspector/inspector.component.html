@@ -1,0 +1,98 @@
+<section class="inspector">
+  <h2>Inspector</h2>
+  <p class="inspector__subtitle">
+    Ajuste propriedades, dados e estilos do componente selecionado.
+  </p>
+
+  <ng-container *ngIf="component; else emptyState">
+    <form [formGroup]="form" class="inspector__form">
+      <div class="form-section">
+        <h3>Identidade</h3>
+        <label>
+          Título
+          <input type="text" formControlName="title" />
+        </label>
+        <label>
+          Subtítulo
+          <input type="text" formControlName="subtitle" />
+        </label>
+      </div>
+
+      <div class="form-section">
+        <h3>Dados</h3>
+        <label>
+          Fonte de dados
+          <select formControlName="dataSourceId">
+            <option value="">Selecione uma fonte</option>
+            <option *ngFor="let source of dataSources || []" [value]="source.id">
+              {{ source.name }}
+            </option>
+          </select>
+        </label>
+        <label *ngIf="collectionOptions.length">
+          Conjunto
+          <select formControlName="collectionId">
+            <option value="">Selecione um conjunto</option>
+            <option *ngFor="let collection of collectionOptions" [value]="collection.id">
+              {{ collection.name }}
+            </option>
+          </select>
+        </label>
+        <label>
+          Métrica
+          <select formControlName="metric">
+            <option value="">Selecione</option>
+            <option *ngFor="let field of metricOptions" [value]="field.id">{{ field.label }}</option>
+          </select>
+        </label>
+        <label>
+          Dimensão
+          <select formControlName="dimension">
+            <option value="">Selecione</option>
+            <option *ngFor="let field of dimensionOptions" [value]="field.id">{{ field.label }}</option>
+          </select>
+        </label>
+        <label>
+          Métrica de comparação
+          <select formControlName="comparisonMetric">
+            <option value="">Nenhuma</option>
+            <option *ngFor="let field of metricOptions" [value]="field.id">{{ field.label }}</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="form-section">
+        <h3>Estilo</h3>
+        <div class="color-row">
+          <label>
+            Fundo
+            <input type="color" formControlName="backgroundColor" />
+          </label>
+          <label>
+            Acento
+            <input type="color" formControlName="accentColor" />
+          </label>
+          <label>
+            Texto
+            <input type="color" formControlName="textColor" />
+          </label>
+        </div>
+        <label class="checkbox">
+          <input type="checkbox" formControlName="showBorder" />
+          Exibir borda
+        </label>
+        <label>
+          Raio da borda (px)
+          <input type="number" formControlName="cornerRadius" min="0" max="32" />
+        </label>
+      </div>
+    </form>
+  </ng-container>
+
+  <ng-template #emptyState>
+    <div class="inspector__empty">
+      <span class="material-symbols-outlined">stylus_note</span>
+      <p>Selecione um componente no canvas para editar suas propriedades.</p>
+    </div>
+  </ng-template>
+</section>

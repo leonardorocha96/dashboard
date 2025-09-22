@@ -1,0 +1,28 @@
+<div class="page-tabs">
+  <div class="page-tabs__list">
+    <button
+      *ngFor="let page of pages"
+      type="button"
+      class="page-tab"
+      [class.page-tab--active]="page.id === activePageId"
+      (click)="onSelect(page)"
+    >
+      <span class="page-tab__name">{{ page.name }}</span>
+      <div class="page-tab__actions">
+        <button type="button" class="icon-button" (click)="onRename(page, $event)">
+          <span class="material-symbols-outlined">edit</span>
+        </button>
+        <button type="button" class="icon-button" (click)="onDuplicate(page, $event)">
+          <span class="material-symbols-outlined">content_copy</span>
+        </button>
+      </div>
+    </button>
+  </div>
+
+  <div class="page-tabs__actions">
+    <button type="button" class="add-page" (click)="addPage.emit()">
+      <span class="material-symbols-outlined">add</span>
+      Nova página
+    </button>
+  </div>
+</div>

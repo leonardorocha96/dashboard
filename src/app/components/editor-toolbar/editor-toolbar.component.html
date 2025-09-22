@@ -1,0 +1,28 @@
+<div class="toolbar">
+  <div class="toolbar__group">
+    <span class="toolbar__label">Responsividade</span>
+    <div class="device-toggle">
+      <button
+        *ngFor="let option of deviceOptions"
+        type="button"
+        class="device-toggle__button"
+        [class.device-toggle__button--active]="option.id === viewMode"
+        (click)="onSelectMode(option)"
+      >
+        <span class="material-symbols-outlined">{{ option.icon }}</span>
+        <span>{{ option.label }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="toolbar__group">
+    <button type="button" class="toolbar-button" (click)="openDataSources.emit()">
+      <span class="material-symbols-outlined">storage</span>
+      Fontes de dados
+    </button>
+    <button type="button" class="toolbar-button" (click)="createPage.emit()">
+      <span class="material-symbols-outlined">add</span>
+      Página
+    </button>
+  </div>
+</div>

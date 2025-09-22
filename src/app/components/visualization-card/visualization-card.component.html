@@ -1,0 +1,145 @@
+<div
+  class="visualization-card"
+  [ngClass]="['visualization-card--' + mode]"
+  [style.--accent]="component?.style?.accentColor || '#2ec4b6'"
+>
+  <ng-container [ngSwitch]="component?.type">
+    <ng-container *ngSwitchCase="'kpi'">
+      <div class="visualization-card__kpi" *ngIf="kpiView as kpi; else empty">
+        <div class="kpi-metric">
+          <span class="kpi-metric__label">{{ kpi.metricLabel }}</span>
+          <span class="kpi-metric__value">{{ kpi.metricValue }}</span>
+        </div>
+
+        <div class="kpi-comparison" *ngIf="kpi.comparisonLabel">
+          <span
+            class="kpi-comparison__delta"
+            [ngClass]="{ 'kpi-comparison__delta--positive': kpi.positive, 'kpi-comparison__delta--negative': !kpi.positive }"
+          >
+            <span class="material-symbols-outlined">
+              {{ kpi.positive ? 'trending_up' : 'trending_down' }}
+            </span>
+            {{ kpi.variationPercent || kpi.variationValue }}
+          </span>
+          <span class="kpi-comparison__caption">
+            vs {{ kpi.comparisonLabel }}<span *ngIf="kpi.comparisonValue"> • {{ kpi.comparisonValue }}</span>
+          </span>
+        </div>
+
+        <div class="kpi-sparkline" *ngIf="sparklineOptions">
+          <div echarts [options]="sparklineOptions" class="sparkline"></div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'comparativo'">
+      <div class="visualization-card__comparativo" *ngIf="comparativoView as comp; else empty">
+        <div class="comparativo__metric comparativo__metric--primary">
+          <span class="comparativo__label">{{ comp.primaryLabel }}</span>
+          <span class="comparativo__value">{{ comp.primaryValue }}</span>
+        </div>
+        <div class="comparativo__metric comparativo__metric--secondary">
+          <span class="comparativo__label">{{ comp.secondaryLabel }}</span>
+          <span class="comparativo__value">{{ comp.secondaryValue }}</span>
+        </div>
+        <div
+          class="comparativo__delta"
+          [ngClass]="{ 'comparativo__delta--positive': comp.positive, 'comparativo__delta--negative': !comp.positive }"
+        >
+          <span class="material-symbols-outlined">{{ comp.positive ? 'north_east' : 'south_west' }}</span>
+          {{ comp.deltaValue }} ({{ comp.ratio }})
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'tabela'">
+      <div class="visualization-card__table" *ngIf="tableRows.length > 0; else empty">
+        <table>
+          <thead>
+            <tr>
+              <th
+                *ngFor="let column of tableColumns"
+                class="table__th"
+                [class.table__th--right]="column.align === 'right'"
+              >
+                {{ column.label }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of tableRows">
+              <td
+                *ngFor="let column of tableColumns"
+                class="table__cell"
+                [class.table__cell--right]="column.align === 'right'"
+              >
+                <ng-container [ngSwitch]="column.key">
+                  <div *ngSwitchCase="'dimension'" class="table__dimension">
+                    <span class="table__name">{{ row.dimension }}</span>
+                    <span class="table__progress" *ngIf="row.progress !== undefined">
+                      <span class="table__progress-bar" [style.width.%]="row.progress * 100"></span>
+                    </span>
+                  </div>
+                  <span *ngSwitchCase="'metric'" class="table__value">{{ row.metric }}</span>
+                  <span *ngSwitchCase="'comparison'" class="table__value table__value--secondary"
+                    >{{ row.comparison }}</span
+                  >
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'tabela-dinamica'">
+      <div class="visualization-card__table visualization-card__table--pivot" *ngIf="tableRows.length > 0; else empty">
+        <table>
+          <thead>
+            <tr>
+              <th
+                *ngFor="let column of tableColumns"
+                class="table__th"
+                [class.table__th--right]="column.align === 'right'"
+              >
+                {{ column.label }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of tableRows">
+              <td
+                *ngFor="let column of tableColumns"
+                class="table__cell"
+                [class.table__cell--right]="column.align === 'right'"
+              >
+                <ng-container [ngSwitch]="column.key">
+                  <div *ngSwitchCase="'dimension'" class="table__dimension table__dimension--pivot">
+                    <span class="table__name">{{ row.dimension }}</span>
+                  </div>
+                  <span *ngSwitchCase="'metric'" class="table__value">{{ row.metric }}</span>
+                  <span *ngSwitchCase="'comparison'" class="table__value table__value--secondary"
+                    >{{ row.comparison }}</span
+                  >
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <div class="visualization-card__chart" *ngIf="chartOptions && hasData; else empty">
+        <div echarts [options]="chartOptions" class="chart"></div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #empty>
+    <div class="visualization-card__empty">
+      <span class="material-symbols-outlined">data_alert</span>
+      <p>{{ emptyMessage }}</p>
+    </div>
+  </ng-template>
+</div>
