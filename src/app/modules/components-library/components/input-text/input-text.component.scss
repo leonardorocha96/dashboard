@@ -1,0 +1,15 @@
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: clamp(0.85rem, 1vw, 1rem);
+
+  input {
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 0.65rem 0.85rem;
+    font: inherit;
+    background: var(--surface-2);
+    color: var(--text-primary);
+  }
+}

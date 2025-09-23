@@ -1,0 +1,9 @@
+<label class="selector-field">
+  <span>{{ ctx.component.title }}</span>
+  <input type="text" [formControl]="control" placeholder="Buscar" />
+  <ul *ngIf="options$ | async as options">
+    <li *ngFor="let option of options" (click)="control.setValue(option)">
+      {{ option }}
+    </li>
+  </ul>
+</label>

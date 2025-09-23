@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.runtime-grid {
+  height: 100%;
+  --dx-base-bg: var(--surface-1);
+  --dx-base-text: var(--text-primary);
+}

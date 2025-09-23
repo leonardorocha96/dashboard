@@ -1,0 +1,22 @@
+<div class="runtime" *ngIf="vm$ | async as vm">
+  <header>
+    <h1>{{ vm.page?.name }}</h1>
+    <p>{{ vm.page?.description }}</p>
+  </header>
+  <app-global-filter-bar></app-global-filter-bar>
+  <section
+    class="runtime-canvas"
+    [style.gridTemplateColumns]="vm.page?.layout.grid.gridTemplateColumns"
+    [style.gridTemplateRows]="vm.page?.layout.grid.gridTemplateRows"
+    [style.gap]="vm.page?.layout.grid.gap"
+  >
+    <article
+      *ngFor="let component of vm.components"
+      class="runtime-component"
+      [style.gridColumn]="component.position.colStart + ' / span ' + component.position.colSpan"
+      [style.gridRow]="component.position.rowStart + ' / span ' + component.position.rowSpan"
+    >
+      <app-component-wrapper [component]="component"></app-component-wrapper>
+    </article>
+  </section>
+</div>

@@ -1,0 +1,60 @@
+{
+  "id": "relatorio-formatado",
+  "name": "Relatório Formatado",
+  "description": "Relatório tabular com exportação XLSX.",
+  "createdAt": "2024-03-10T00:00:00.000Z",
+  "updatedAt": "2024-03-10T00:00:00.000Z",
+  "createdBy": "demo",
+  "updatedBy": "demo",
+  "settings": { "theme": "default", "resolutionClass": "desktop", "previewScale": 1 },
+  "layout": {
+    "id": "layout-relatorio",
+    "name": "Relatório",
+    "grid": {
+      "gridTemplateColumns": "repeat(12, 1fr)",
+      "gridTemplateRows": "repeat(8, minmax(60px, auto))",
+      "gap": "1rem",
+      "backgroundColor": "var(--canvas-background)"
+    },
+    "filterBar": { "backgroundColor": "#ffffff", "fixed": true, "showApplyButton": true },
+    "components": [
+      {
+        "id": "label-cabecalho",
+        "componentType": "label",
+        "title": "Cabeçalho",
+        "position": { "colStart": 1, "colSpan": 12, "rowStart": 1, "rowSpan": 1 },
+        "style": { "zIndex": 1, "backgroundColor": "#0f172a", "minHeight": 80 },
+        "metadata": { "text": "Relatório de Desempenho" }
+      },
+      {
+        "id": "tabela-relatorio",
+        "componentType": "data-grid",
+        "title": "Relatório",
+        "position": { "colStart": 1, "colSpan": 12, "rowStart": 2, "rowSpan": 6 },
+        "style": { "zIndex": 1 },
+        "view": {
+          "id": "view-relatorio",
+          "componentId": "tabela-relatorio",
+          "mode": "sql",
+          "queryId": "finance-report",
+          "params": { "limite": 100 },
+          "allowExport": true
+        },
+        "filters": [
+          { "filterId": "dataInicial" },
+          { "filterId": "dataFinal" }
+        ],
+        "actions": [
+          {
+            "id": "relatorio-exportar",
+            "type": "apiCall",
+            "label": "Exportar XLSX",
+            "trigger": "onClick",
+            "target": { "endpoint": "/api/export", "method": "POST" },
+            "payload": { "dataset": [], "filename": "relatorio-formatado" }
+          }
+        ]
+      }
+    ]
+  }
+}

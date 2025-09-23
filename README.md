@@ -1,34 +1,53 @@
-# Dashboard Builder
+# Analytics Studio – Angular 16
 
-Aplicação Angular que materializa o construtor de dashboards solicitado, com layout inspirado no Looker Studio e identidade visual da plataforma Solução.
+Workspace Angular focado em Page Builder para dashboards e modo runtime.
 
-## Requisitos
-- Node.js 20+
-- npm 9+
-- Angular CLI (opcional para rodar comandos `ng` globalmente)
+## Tecnologias
+- Angular 16 + RxJS
+- CDK DragDrop para builder
+- DevExtreme DataGrid e ng-apexcharts
+- State reativo com `BehaviorSubject`
+- CSS Grid responsivo e tipografia com `clamp()`
 
-## Como executar
+## Estrutura
+```
+src/app
+├── app-routing.module.ts
+├── modules
+│   ├── builder
+│   ├── runtime
+│   ├── components-library
+│   ├── filters
+│   ├── views
+│   └── actions
+├── shared
+│   ├── models
+│   ├── services
+│   ├── interceptors
+│   └── shared.module.ts
+└── app.component.*
+```
+
+## Executar
 ```bash
 npm install
 npm start
 ```
-O comando `npm start` inicia o servidor de desenvolvimento em `http://localhost:4200/`.
+A aplicação fica disponível em `http://localhost:4200`. A rota padrão abre o Builder (`/builder/pages/default-page`). O runtime está em `/runtime/default-page`.
 
-Para gerar uma build de produção utilize:
+## Testes
 ```bash
-npm run build
+npm test
 ```
 
-## Estrutura de pastas
-- `src/app` – componentes, serviços e modelos do construtor.
-- `src/assets` – arquivos estáticos.
-- `docs/dashboard-builder.md` – documentação conceitual original.
+## Exemplos
+Três páginas completas estão disponíveis em `examples/`. Consulte `examples/README.md` para detalhes.
 
-## Principais componentes
-- `app.component` – shell principal com painel, canvas e inspector.
-- `builder-state.service` – gerencia estado de páginas, componentes e fontes de dados.
-- `component-library` – catálogo drag and drop de componentes.
-- `canvas` – área de edição responsiva com suporte a drag-and-drop.
-- `inspector` – formulário dinâmico para edição de propriedades.
-- `data-source-drawer` – gestão de fontes de dados em overlay lateral.
-- `preview-overlay` – pré-visualização em tela cheia com troca de página e dispositivo.
+## Boas práticas & segurança
+- Interceptores adicionam `Authorization` e `X-Tenant-ID`.
+- `BuilderApiService` mantém whitelist de `queryId` para VIEW SQL.
+- `ActionService` aplica rate-limit e integra com `AuditService`.
+- `ExportService` sanitiza dados antes de gerar arquivos.
+
+## AI Compose mock
+O serviço `AiComposeService` consome `/ai/compose` (mock). Há método `mock()` para simular sugestões.

@@ -1,0 +1,17 @@
+<dx-data-grid
+  class="runtime-grid"
+  [dataSource]="ctx.data.data"
+  [columns]="columns"
+  [showBorders]="false"
+  [columnAutoWidth]="true"
+  [hoverStateEnabled]="true"
+  [allowColumnResizing]="true"
+  [rowAlternationEnabled]="true"
+  [height]="'100%'"
+  selection.mode="multiple"
+  (onRowDblClick)="handleRowDblClick($event)"
+  (onSelectionChanged)="handleSelectionChanged($event)"
+>
+  <dxo-paging [pageSize]="ctx.data.pageSize ?? 10"></dxo-paging>
+  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 20, 50]"></dxo-pager>
+</dx-data-grid>

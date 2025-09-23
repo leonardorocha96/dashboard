@@ -1,0 +1,14 @@
+<div class="chart-wrapper" *ngIf="chartOptions as options">
+  <apx-chart
+    [series]="options.series"
+    [chart]="options.chart"
+    [xaxis]="options.xaxis"
+    [dataLabels]="options.dataLabels"
+    [stroke]="options.stroke"
+    [legend]="options.legend"
+    [fill]="options.fill"
+    [tooltip]="options.tooltip"
+    [responsive]="options.responsive"
+    (dataPointSelection)="onPointClick($event.selectedDataPoints[0]?.[1] ?? 0)"
+  ></apx-chart>
+</div>

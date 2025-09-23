@@ -1,0 +1,52 @@
+.palette {
+  background: var(--surface-1);
+  border-radius: 24px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.14);
+  overflow-y: auto;
+}
+
+.palette-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.palette-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 16px;
+  background: var(--surface-2);
+  cursor: grab;
+  user-select: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+  }
+
+  span {
+    font-size: clamp(1.5rem, 2vw, 2.4rem);
+    color: var(--accent-color);
+  }
+
+  h3 {
+    margin: 0;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  }
+
+  p {
+    margin: 0;
+    font-size: clamp(0.75rem, 1vw, 0.9rem);
+    color: var(--text-muted);
+  }
+}

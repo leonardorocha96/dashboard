@@ -1,0 +1,16 @@
+<div class="wizard-backdrop" (click)="close.emit()"></div>
+<div class="wizard-panel">
+  <header>
+    <h2>Escolha um template</h2>
+    <button type="button" (click)="close.emit()">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+  </header>
+  <section class="templates">
+    <article *ngFor="let template of templates" (click)="apply.emit(template)">
+      <img [src]="template.thumbnail" [alt]="template.label" />
+      <h3>{{ template.label }}</h3>
+      <p>{{ template.description }}</p>
+    </article>
+  </section>
+</div>
