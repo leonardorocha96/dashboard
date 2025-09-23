@@ -1,0 +1,36 @@
+<div class="builder-shell" *ngIf="vm$ | async as vm">
+  <app-builder-toolbar
+    [page]="vm.page"
+    (saveRequested)="save()"
+    (openTemplatesRequested)="openTemplates()"
+    (aiComposeRequested)="composeWithAi($event)"
+  ></app-builder-toolbar>
+
+  <div class="builder-body" [class.preview-mobile]="vm.page?.settings.resolutionClass === 'mobile'">
+    <app-component-palette></app-component-palette>
+
+    <app-builder-canvas
+      class="builder-canvas"
+      [page]="vm.page"
+      [components]="vm.components"
+      [selection]="vm.selection"
+    ></app-builder-canvas>
+
+    <app-builder-sidebar
+      [page]="vm.page"
+      [components]="vm.components"
+      [selection]="vm.selection"
+    ></app-builder-sidebar>
+  </div>
+
+  <section class="builder-footer" *ngIf="vm.page as page">
+    <app-filter-bar-config [page]="page"></app-filter-bar-config>
+  </section>
+</div>
+
+<app-templates-wizard
+  *ngIf="showTemplates"
+  [templates]="templates$ | async ?? []"
+  (close)="closeTemplates()"
+  (apply)="applyTemplate($event)"
+></app-templates-wizard>

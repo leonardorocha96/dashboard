@@ -1,0 +1,57 @@
+{
+  "id": "cadastro-produtos",
+  "name": "Cadastro de Produtos",
+  "description": "Tela CRUD com tabela editável e modal de detalhes.",
+  "createdAt": "2024-03-10T00:00:00.000Z",
+  "updatedAt": "2024-03-10T00:00:00.000Z",
+  "createdBy": "demo",
+  "updatedBy": "demo",
+  "settings": { "theme": "default", "resolutionClass": "desktop", "previewScale": 1 },
+  "layout": {
+    "id": "layout-cadastro",
+    "name": "Cadastro",
+    "grid": {
+      "gridTemplateColumns": "repeat(12, 1fr)",
+      "gridTemplateRows": "repeat(10, minmax(60px, auto))",
+      "gap": "1rem",
+      "backgroundColor": "var(--canvas-background)"
+    },
+    "filterBar": { "backgroundColor": "#ffffff", "fixed": true, "showApplyButton": true },
+    "components": [
+      {
+        "id": "tabela-produtos",
+        "componentType": "data-grid",
+        "title": "Produtos",
+        "position": { "colStart": 1, "colSpan": 12, "rowStart": 2, "rowSpan": 8 },
+        "style": { "zIndex": 1 },
+        "view": {
+          "id": "view-produtos",
+          "componentId": "tabela-produtos",
+          "mode": "catalog",
+          "table": "products",
+          "primaryKey": "id",
+          "searchableFields": ["nome", "categoria"],
+          "pageSize": 15,
+          "allowCreate": true,
+          "allowUpdate": true
+        },
+        "actions": [
+          {
+            "id": "produto-detalhes",
+            "type": "openDetailsModal",
+            "label": "Detalhes",
+            "trigger": "onRowDoubleClick",
+            "target": { "viewId": "view-produto-detalhe" }
+          },
+          {
+            "id": "produto-salvar",
+            "type": "createOrUpdate",
+            "label": "Editar",
+            "trigger": "onSelectionChange",
+            "target": { "endpoint": "/api/products" }
+          }
+        ]
+      }
+    ]
+  }
+}

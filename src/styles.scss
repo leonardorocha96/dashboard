@@ -1,18 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0');
+@import url('https://cdn.jsdelivr.net/npm/devextreme@23.2.6/dist/css/dx.light.css');
 
 :root {
-  --color-navy: #0d1b2a;
-  --color-navy-strong: #1b263b;
-  --color-teal: #2ec4b6;
-  --color-warning: #ff9f1c;
-  --color-surface: #f5f7fa;
-  --color-border: #e0e6ed;
-  --color-text: #1b263b;
-  --color-muted: #74828f;
-  --radius-lg: 12px;
-  --radius-md: 8px;
-  --shadow-card: 0 4px 16px rgba(13, 27, 42, 0.08);
+  --min-readable-px: 14;
+  --app-background: #0f172a;
+  --canvas-background: #f8fafc;
+  --surface-1: rgba(255, 255, 255, 0.92);
+  --surface-2: rgba(255, 255, 255, 0.8);
+  --border-subtle: rgba(148, 163, 184, 0.35);
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
+  --accent-color: #6366f1;
+  --success-color: #10b981;
+  --danger-color: #ef4444;
 }
 
 * {
@@ -24,13 +25,14 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', Arial, sans-serif;
-  color: var(--color-text);
-  background: var(--color-surface);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.95));
+  color: var(--text-primary);
   min-height: 100%;
 }
 
 body {
   display: flex;
+  font-size: clamp(calc(var(--min-readable-px) * 1px), 0.9vw + 0.75rem, 1.1rem);
 }
 
 app-root {
@@ -38,20 +40,17 @@ app-root {
   display: flex;
 }
 
-button {
+button,
+input,
+select,
+textarea {
   font-family: inherit;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded';
   font-weight: 400;
   font-style: normal;
-  font-size: 20px;
   line-height: 1;
   letter-spacing: normal;
   display: inline-flex;
@@ -60,4 +59,14 @@ a {
   justify-content: center;
   user-select: none;
   -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.35);
+  border-radius: 999px;
 }

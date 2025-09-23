@@ -1,0 +1,9 @@
+.chart-wrapper {
+  height: 100%;
+  width: 100%;
+
+  ::ng-deep .apexcharts-title-text,
+  ::ng-deep .apexcharts-legend-text {
+    font-size: clamp(0.75rem, 1vw, 0.95rem);
+  }
+}

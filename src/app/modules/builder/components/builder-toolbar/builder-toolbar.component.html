@@ -1,0 +1,32 @@
+<header class="builder-toolbar">
+  <div class="branding">
+    <span class="material-symbols-rounded">dashboard_customize</span>
+    <div>
+      <h1>{{ page?.name || 'Nova página' }}</h1>
+      <small>{{ page?.description || 'Construa experiências analíticas no-code.' }}</small>
+    </div>
+  </div>
+
+  <div class="toolbar-actions">
+    <label>
+      Resolução
+      <select [formControl]="resolutionControl">
+        <option *ngFor="let option of resolutions" [value]="option.id">{{ option.label }}</option>
+      </select>
+    </label>
+
+    <div class="ai-compose">
+      <input [formControl]="aiPromptControl" placeholder="Converse com os dados..." />
+      <button type="button" (click)="compose()">Gerar</button>
+    </div>
+
+    <button type="button" class="ghost" (click)="openTemplates()">
+      <span class="material-symbols-rounded">add</span>
+      +Novo
+    </button>
+    <button type="button" class="primary" (click)="emitSave()">
+      <span class="material-symbols-rounded">save</span>
+      Salvar
+    </button>
+  </div>
+</header>

@@ -1,0 +1,6 @@
+<label class="multi-select-field">
+  <span>{{ ctx.component.title }}</span>
+  <select [formControl]="control" multiple>
+    <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+  </select>
+</label>

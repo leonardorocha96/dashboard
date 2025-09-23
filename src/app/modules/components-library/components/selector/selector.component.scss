@@ -1,0 +1,39 @@
+.selector-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+
+  input {
+    border-radius: 12px;
+    border: 1px solid var(--border-subtle);
+    padding: 0.65rem 0.85rem;
+    background: var(--surface-2);
+    color: var(--text-primary);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: var(--surface-1);
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  li {
+    padding: 0.35rem 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      background: var(--surface-2);
+    }
+  }
+}

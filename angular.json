@@ -80,5 +80,8 @@
       }
     }
   },
-  "defaultProject": "dashboard-builder-app"
+  "defaultProject": "dashboard-builder-app",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -1,0 +1,19 @@
+<div class="context-menu" [class.open]="opened">
+  <button type="button" class="trigger" (click)="toggle()">
+    <span class="material-symbols-rounded">more_vert</span>
+  </button>
+  <ul *ngIf="opened" (mouseleave)="close()">
+    <li (click)="bringToFrontRequested.emit(); close()">Trazer para frente</li>
+    <li (click)="sendToBackRequested.emit(); close()">Enviar para trás</li>
+    <li (click)="duplicateRequested.emit(); close()">Duplicar</li>
+    <li (click)="deleteRequested.emit(); close()">Deletar</li>
+    <li (click)="groupRequested.emit(); close()">Agrupar</li>
+    <li (click)="ungroupRequested.emit(); close()">Desagrupar</li>
+    <li (click)="lockToggleRequested.emit(); close()">
+      {{ component.locked ? 'Desbloquear' : 'Bloquear' }}
+    </li>
+    <li (click)="freezeToggleRequested.emit(); close()">
+      {{ component.style?.frozen ? 'Descongelar' : 'Congelar' }}
+    </li>
+  </ul>
+</div>

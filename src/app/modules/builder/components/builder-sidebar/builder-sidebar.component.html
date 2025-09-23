@@ -1,0 +1,59 @@
+<aside class="sidebar" *ngIf="page as currentPage">
+  <nav class="tabs">
+    <button type="button" [class.active]="tab === 'componentes'" (click)="tab = 'componentes'">Componentes</button>
+    <button type="button" [class.active]="tab === 'configuracoes'" (click)="tab = 'configuracoes'">Configurações</button>
+    <button type="button" [class.active]="tab === 'database'" (click)="tab = 'database'">Database</button>
+    <button type="button" [class.active]="tab === 'tela'" (click)="tab = 'tela'">Tela</button>
+  </nav>
+
+  <section *ngIf="tab === 'componentes'" class="panel">
+    <h3>Componentes na tela</h3>
+    <ul>
+      <li
+        *ngFor="let component of components"
+        [class.active]="selection.includes(component.id)"
+        (click)="selectComponent(component)"
+      >
+        {{ component.title }}
+        <small>{{ component.componentType }}</small>
+      </li>
+    </ul>
+  </section>
+
+  <section *ngIf="tab === 'configuracoes'" class="panel">
+    <h3>Estilo do componente</h3>
+    <form [formGroup]="componentForm" *ngIf="selectedComponent; else emptyState">
+      <label>Cor de fundo <input type="color" formControlName="backgroundColor" /></label>
+      <label>Raio da borda <input type="text" formControlName="borderRadius" /></label>
+      <label>z-index <input type="number" formControlName="zIndex" /></label>
+    </form>
+    <ng-template #emptyState>
+      <p>Selecione um componente para editar.</p>
+    </ng-template>
+  </section>
+
+  <section *ngIf="tab === 'database'" class="panel">
+    <h3>View associada</h3>
+    <p *ngIf="!selectedComponent">Nenhum componente selecionado.</p>
+    <app-view-config-panel *ngIf="selectedComponent as component" [component]="component"></app-view-config-panel>
+    <section class="connections">
+      <h4>Conexões</h4>
+      <ul>
+        <li *ngFor="let connection of connections">
+          <strong>{{ connection.name }}</strong>
+          <span>{{ connection.type }}</span>
+        </li>
+      </ul>
+    </section>
+  </section>
+
+  <section *ngIf="tab === 'tela'" class="panel">
+    <h3>Configurações da tela</h3>
+    <form [formGroup]="pageForm">
+      <label>Cor de fundo do canvas <input type="color" formControlName="backgroundColor" /></label>
+      <label>Cor da barra de filtros <input type="color" formControlName="filterBarColor" /></label>
+      <label><input type="checkbox" formControlName="showApplyButton" /> Mostrar botão Aplicar</label>
+      <label><input type="checkbox" formControlName="waitForSelection" /> Esperar seleção antes de renderizar</label>
+    </form>
+  </section>
+</aside>
