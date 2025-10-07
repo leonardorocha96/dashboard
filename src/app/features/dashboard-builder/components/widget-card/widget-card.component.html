@@ -1,0 +1,48 @@
+<div class="widget-card">
+  <header class="widget-card__header">
+    <h3>{{ widget.title }}</h3>
+    <div class="widget-card__actions">
+      <dx-button icon="preferences" stylingMode="text" (onClick)="onConfigure()"></dx-button>
+      <dx-button icon="trash" stylingMode="text" type="danger" (onClick)="onRemove()"></dx-button>
+    </div>
+  </header>
+
+  <section class="widget-card__chart" *ngIf="!isCircular; else circularChart">
+    <dx-chart
+      [dataSource]="dataSet.data"
+      [palette]="widget.settings.palette"
+      [animation]="{ enabled: true }"
+    >
+      <dxo-common-series-settings
+        [type]="widget.type"
+        [argumentField]="dataSet.argumentField"
+        [valueField]="dataSet.valueField"
+        [color]="widget.settings.seriesColor"
+      ></dxo-common-series-settings>
+      <dxo-legend [visible]="widget.settings.showLegend"></dxo-legend>
+      <dxo-tooltip [enabled]="true" [format]="{ type: 'fixedPoint', precision: 0 }"></dxo-tooltip>
+      <dxo-margin [left]="20" [right]="20" [top]="10" [bottom]="10"></dxo-margin>
+      <dxo-argument-axis [visible]="true"></dxo-argument-axis>
+      <dxo-value-axis [visible]="true"></dxo-value-axis>
+    </dx-chart>
+  </section>
+
+  <ng-template #circularChart>
+    <section class="widget-card__chart">
+      <dx-pie-chart
+        [dataSource]="dataSet.data"
+        [type]="pieType"
+        [palette]="widget.settings.palette"
+        [innerRadius]="pieType === 'doughnut' ? 0.5 : 0"
+        [resolveLabelOverlapping]="'shift'"
+      >
+        <dxi-series
+          [argumentField]="dataSet.argumentField"
+          [valueField]="dataSet.valueField"
+        ></dxi-series>
+        <dxo-legend [visible]="widget.settings.showLegend"></dxo-legend>
+        <dxo-tooltip [enabled]="true" format="percent"></dxo-tooltip>
+      </dx-pie-chart>
+    </section>
+  </ng-template>
+</div>

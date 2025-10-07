@@ -1,0 +1,71 @@
+<div class="builder">
+  <aside class="builder__sidebar">
+    <app-widget-palette
+      [paletteItems]="paletteItems"
+      [dragGroup]="dragGroup"
+      (addWidget)="onPaletteAdd($event)"
+    ></app-widget-palette>
+  </aside>
+
+  <section class="builder__workspace">
+    <header class="builder__toolbar">
+      <div>
+        <h1>Montador de dashboards</h1>
+        <p>Arraste widgets para criar visualizações personalizadas com componentes DevExtreme.</p>
+      </div>
+      <div class="builder__actions">
+        <dx-button text="Resetar layout" stylingMode="outlined" icon="refresh" (onClick)="clearLayout()"></dx-button>
+      </div>
+    </header>
+
+    <div class="builder__dropzone" [class.builder__dropzone--empty]="!widgets.length">
+      <p class="builder__empty" *ngIf="!widgets.length">
+        Arraste um widget da paleta à esquerda ou clique em "Adicionar" para começar.
+      </p>
+
+      <dx-sortable
+        class="builder__sortable"
+        [data]="widgets"
+        [itemOrientation]="'vertical'"
+        [dropFeedbackMode]="'push'"
+        [itemDragging]="{ group: dragGroup, allowDropInsideItem: false, allowReordering: true }"
+        (onAdd)="onCanvasAdd($event)"
+        (onReorder)="onCanvasReorder($event)"
+      >
+        <div
+          *dxTemplate="let widget of 'item'"
+          class="builder__item"
+          [style.width.px]="widget.width"
+          [style.height.px]="widget.height"
+        >
+          <dx-resizable
+            class="builder__resizable"
+            [width]="widget.width"
+            [height]="widget.height"
+            [minWidth]="260"
+            [minHeight]="220"
+            [handles]="'all'"
+            (onResizeEnd)="onWidgetResize($event, widget)"
+          >
+            <app-widget-card
+              [widget]="widget"
+              [dataSet]="widgetData(widget)"
+              (configure)="openConfig(widget)"
+              (remove)="onWidgetRemove($event)"
+            ></app-widget-card>
+          </dx-resizable>
+        </div>
+      </dx-sortable>
+    </div>
+  </section>
+</div>
+
+<app-widget-config-drawer
+  [open]="drawerOpen"
+  [widget]="selectedWidget"
+  [dataSets]="currentDataSets"
+  [colorPalettes]="availableColorPalettes"
+  [seriesColors]="availableSeriesColors"
+  (cancel)="onConfigCancel()"
+  (submit)="onConfigSubmit($event)"
+></app-widget-config-drawer>

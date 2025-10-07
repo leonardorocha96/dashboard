@@ -1,19 +1,12 @@
 <div class="app-shell">
-  <header class="app-header">
-    <div class="branding">
-      <span class="material-symbols-rounded">auto_awesome_mosaic</span>
-      <div>
-        <h1>{{ title }}</h1>
-        <small>Page Builder & Runtime</small>
-      </div>
+  <header class="app-shell__header">
+    <div class="app-shell__branding">
+      <span>DevExtreme Dashboard Builder</span>
+      <small>Angular 16 · Node 20 · DevExtreme 23.2</small>
     </div>
-    <nav>
-      <a routerLink="/builder/pages/default-page" routerLinkActive="active">Builder</a>
-      <a routerLink="/runtime/default-page" routerLinkActive="active">Runtime</a>
-      <a href="/docs/dashboard-builder.md" target="_blank">Docs</a>
-    </nav>
   </header>
-  <main class="app-content">
+
+  <main class="app-shell__content">
     <router-outlet></router-outlet>
   </main>
 </div>

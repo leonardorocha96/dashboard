@@ -1,59 +1,29 @@
 .app-shell {
-  flex: 1;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  backdrop-filter: blur(6px);
+  background: #020617;
+  color: #e2e8f0;
 }
 
-.app-header {
+.app-shell__header {
+  padding: 1.5rem 2rem 1rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  color: #fff;
+  align-items: flex-end;
 }
 
-.branding {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-
-  h1 {
-    margin: 0;
-    font-size: clamp(1.2rem, 2vw, 2rem);
-  }
-
-  small {
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  .material-symbols-rounded {
-    font-size: clamp(2rem, 2.5vw, 2.8rem);
-  }
+.app-shell__branding span {
+  font-size: 1.35rem;
+  font-weight: 600;
 }
 
-nav {
-  display: flex;
-  gap: 1rem;
-
-  a {
-    padding: 0.5rem 1rem;
-    border-radius: 999px;
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    transition: background 160ms ease;
-
-    &.active,
-    &:hover {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff;
-    }
-  }
+.app-shell__branding small {
+  display: block;
+  margin-top: 0.35rem;
+  color: rgba(148, 163, 184, 0.85);
 }
 
-.app-content {
+.app-shell__content {
   flex: 1;
-  display: flex;
-  overflow: hidden;
 }
