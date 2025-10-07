@@ -1,0 +1,65 @@
+<aside class="config-drawer" [class.config-drawer--open]="open">
+  <header class="config-drawer__header">
+    <div>
+      <h2>Configurar widget</h2>
+      <p *ngIf="widget">Ajuste título, dados e estilo do gráfico selecionado.</p>
+      <p *ngIf="!widget">Selecione um widget para editar suas configurações.</p>
+    </div>
+    <dx-button icon="close" stylingMode="text" (onClick)="onCancel()"></dx-button>
+  </header>
+
+  <form *ngIf="widget" [formGroup]="form" (ngSubmit)="onSubmit()" class="config-drawer__form">
+    <label class="form-field">
+      <span>Título</span>
+      <input type="text" formControlName="title" placeholder="Título do widget" />
+    </label>
+
+    <label class="form-field">
+      <span>Fonte de dados</span>
+      <select formControlName="dataKey">
+        <option *ngFor="let set of dataSets" [value]="set.key">{{ set.label }}</option>
+      </select>
+    </label>
+
+    <label class="form-field form-field--inline">
+      <span>Exibir legenda</span>
+      <input type="checkbox" formControlName="showLegend" />
+    </label>
+
+    <section class="form-section" *ngIf="isCircular">
+      <h3>Paleta de cores</h3>
+      <div class="palette-picker">
+        <button
+          type="button"
+          class="palette-picker__item"
+          *ngFor="let palette of paletteOptions; let i = index; trackBy: trackPalette"
+          [class.palette-picker__item--active]="form.controls.paletteIndex.value === i"
+          (click)="onSelectPalette(i)"
+        >
+          <span *ngFor="let color of palette" [style.background]="color"></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="form-section" *ngIf="!isCircular">
+      <h3>Cor da série</h3>
+      <div class="color-picker">
+        <button
+          type="button"
+          class="color-picker__item"
+          *ngFor="let color of seriesColors"
+          [style.background]="color"
+          [class.color-picker__item--active]="form.controls.seriesColor.value === color"
+          (click)="onSelectColor(color)"
+        ></button>
+      </div>
+    </section>
+
+    <footer class="config-drawer__actions">
+      <dx-button text="Cancelar" stylingMode="outlined" (onClick)="onCancel()"></dx-button>
+      <dx-button type="default" text="Salvar" useSubmitBehavior="true"></dx-button>
+    </footer>
+  </form>
+</aside>
+
+<div class="config-drawer__backdrop" *ngIf="open" (click)="onCancel()"></div>

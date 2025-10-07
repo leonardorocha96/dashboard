@@ -1,0 +1,146 @@
+$config-width: 22rem;
+
+.config-drawer {
+  position: fixed;
+  top: 0;
+  right: -$config-width;
+  width: $config-width;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.98);
+  color: #e2e8f0;
+  box-shadow: -20px 0 40px rgba(15, 23, 42, 0.35);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: right 0.3s ease;
+  z-index: 30;
+}
+
+.config-drawer--open {
+  right: 0;
+}
+
+.config-drawer__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.config-drawer__header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.config-drawer__header p {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: rgba(226, 232, 240, 0.75);
+}
+
+.config-drawer__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  overflow-y: auto;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.form-field input,
+.form-field select {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 0.65rem;
+  padding: 0.65rem 0.75rem;
+  color: inherit;
+  font: inherit;
+}
+
+.form-field--inline {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-section h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.palette-picker {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+}
+
+.palette-picker__item {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid transparent;
+  border-radius: 0.65rem;
+  padding: 0.25rem;
+  gap: 0.25rem;
+  background: rgba(15, 23, 42, 0.4);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.palette-picker__item span {
+  display: block;
+  width: 100%;
+  height: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.palette-picker__item--active {
+  border-color: #38bdf8;
+}
+
+.color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.color-picker__item {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.75rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.color-picker__item--active {
+  border-color: #38bdf8;
+  transform: translateY(-2px);
+}
+
+.config-drawer__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.config-drawer__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  z-index: 20;
+}
+
+:host ::ng-deep .dx-button.dx-button-mode-text {
+  color: #94a3b8;
+}
+
+:host ::ng-deep .dx-button.dx-button-mode-text:hover {
+  color: #cbd5f5;
+}

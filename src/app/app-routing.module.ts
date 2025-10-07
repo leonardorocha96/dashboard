@@ -1,17 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DashboardBuilderComponent } from './features/dashboard-builder/dashboard-builder.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'builder/pages/default-page', pathMatch: 'full' },
-  {
-    path: 'builder',
-    loadChildren: () => import('./modules/builder/builder.module').then((m) => m.BuilderModule),
-  },
-  {
-    path: 'runtime',
-    loadChildren: () => import('./modules/runtime/runtime.module').then((m) => m.RuntimeModule),
-  },
-  { path: '**', redirectTo: 'builder/pages/default-page' },
+  { path: '', component: DashboardBuilderComponent },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

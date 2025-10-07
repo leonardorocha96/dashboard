@@ -1,0 +1,33 @@
+<section class="palette">
+  <header class="palette__header">
+    <h2>Paleta de widgets</h2>
+    <p>Arraste um item para o canvas ou clique em "Adicionar" para criar um novo gráfico.</p>
+  </header>
+
+  <div class="palette__items">
+    <div class="palette__item" *ngFor="let item of paletteItems; trackBy: trackByType">
+      <dx-draggable
+        [data]="item"
+        [group]="dragGroup"
+        [clone]="true"
+        [dragDirection]="'both'"
+        handle=".palette__card"
+      >
+        <div class="palette__card">
+          <span class="palette__icon">{{ item.icon }}</span>
+          <div class="palette__meta">
+            <strong>{{ item.title }}</strong>
+            <small>{{ item.description }}</small>
+          </div>
+        </div>
+      </dx-draggable>
+
+      <dx-button
+        text="Adicionar"
+        type="default"
+        stylingMode="outlined"
+        (onClick)="onAddClick(item)"
+      ></dx-button>
+    </div>
+  </div>
+</section>
