@@ -1,0 +1,25 @@
+<div class="palette">
+  <header>
+    <h2>Paleta de widgets</h2>
+    <p>Arraste para o canvas ou clique para adicionar.</p>
+  </header>
+
+  <div class="palette__items">
+    <dx-draggable
+      *ngFor="let item of items"
+      class="palette__item"
+      [group]="dragGroup"
+      [data]="item"
+      [clone]="true"
+    >
+      <div class="palette__info">
+        <span class="palette__icon" aria-hidden="true">{{ item.icon }}</span>
+        <div>
+          <h3>{{ item.label }}</h3>
+          <p>{{ item.description }}</p>
+        </div>
+      </div>
+      <dx-button text="Adicionar" type="default" (onClick)="onAddClick(item.type)"></dx-button>
+    </dx-draggable>
+  </div>
+</div>

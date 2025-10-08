@@ -1,0 +1,65 @@
+<div class="dashboard-builder">
+  <aside class="sidebar">
+    <app-widget-palette
+      [items]="paletteItems"
+      [dragGroup]="dragGroup"
+      (addWidget)="addWidgetFromPalette($event)"
+    ></app-widget-palette>
+  </aside>
+
+  <section class="workspace">
+    <header class="workspace__header">
+      <div>
+        <h1>Dashboard Builder</h1>
+        <p>Arraste widgets da paleta, reordene e personalize o layout.</p>
+      </div>
+      <div class="workspace__actions">
+        <dx-button text="Salvar layout" type="default" (onClick)="saveLayout()"></dx-button>
+        <dx-button
+          text="Redefinir"
+          stylingMode="outlined"
+          type="normal"
+          (onClick)="resetLayout()"
+        ></dx-button>
+      </div>
+    </header>
+
+    <div class="canvas-container">
+      <dx-sortable
+        class="canvas"
+        [group]="dragGroup"
+        itemOrientation="vertical"
+        [allowDropInsideItem]="false"
+        dropFeedbackMode="push"
+        [handle]="'.drag-handle'"
+        [data]="widgets"
+        (onAdd)="handleAdd($event)"
+        (onReorder)="handleReorder($event)"
+      >
+        <div *dxTemplate="let widget of 'item'" class="canvas__item">
+          <app-widget-card
+            [widget]="widget"
+            [selected]="widget.id === selectedWidgetId"
+            (select)="selectWidget(widget.id)"
+            (remove)="removeWidget(widget.id)"
+            (resize)="resizeWidget(widget.id, $event)"
+            (configure)="openConfig(widget.id)"
+          ></app-widget-card>
+        </div>
+      </dx-sortable>
+
+      <div class="canvas__empty" *ngIf="widgets.length === 0">
+        <p>Arraste widgets da paleta para iniciar um novo dashboard.</p>
+        <dx-button text="Adicionar gráfico de linha" type="default" (onClick)="addWidgetFromPalette('line')"></dx-button>
+      </div>
+    </div>
+  </section>
+
+  <app-widget-config-drawer
+    [widget]="activeWidget"
+    [palettes]="paletteOptions"
+    (close)="closeConfig()"
+    (update)="applyWidgetConfig($event)"
+    (randomizeData)="refreshData()"
+  ></app-widget-config-drawer>
+</div>

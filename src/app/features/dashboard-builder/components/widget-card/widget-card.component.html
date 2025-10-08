@@ -1,0 +1,81 @@
+<dx-resizable
+  class="resizable"
+  [width]="widget.size.width"
+  [height]="widget.size.height"
+  [handles]="'all'"
+  [minWidth]="320"
+  [minHeight]="260"
+  (onResizeEnd)="onResizeEnd($event)"
+>
+  <div class="widget-card" [class.widget-card--selected]="selected" (click)="onSelect()">
+    <header class="widget-card__header">
+      <span class="drag-handle" aria-hidden="true">⠿</span>
+      <div class="widget-card__title">
+        <h3>{{ widget.config.title }}</h3>
+        <small>{{ widget.type | titlecase }}</small>
+      </div>
+      <div class="widget-card__actions">
+        <dx-button
+          text="Configurar"
+          stylingMode="text"
+          type="default"
+          (onClick)="onConfigureClick($event)"
+        ></dx-button>
+        <dx-button
+          text="Remover"
+          stylingMode="text"
+          type="danger"
+          (onClick)="onRemoveClick($event)"
+        ></dx-button>
+      </div>
+    </header>
+
+    <div class="widget-card__body">
+      <ng-container [ngSwitch]="widget.type">
+        <dx-chart
+          *ngSwitchCase="'line'"
+          [dataSource]="widget.data"
+          [palette]="widget.config.palette"
+          [legend]="{ visible: widget.config.showLegend }"
+          [adaptiveLayout]="{ width: 250 }"
+        >
+          <common-series-settings argumentField="category" type="line"></common-series-settings>
+          <series valueField="value" name="Receita"></series>
+          <series *ngIf="widget.data[0]?.secondaryValue" valueField="secondaryValue" name="Meta"></series>
+        </dx-chart>
+
+        <dx-chart
+          *ngSwitchCase="'bar'"
+          [dataSource]="widget.data"
+          [palette]="widget.config.palette"
+          [legend]="{ visible: widget.config.showLegend }"
+          [adaptiveLayout]="{ width: 250 }"
+        >
+          <common-series-settings argumentField="category" type="bar"></common-series-settings>
+          <series valueField="value" name="Receita"></series>
+          <series *ngIf="widget.data[0]?.secondaryValue" valueField="secondaryValue" name="Meta"></series>
+        </dx-chart>
+
+        <dx-pie-chart
+          *ngSwitchCase="'pie'"
+          [dataSource]="widget.data"
+          [palette]="widget.config.palette"
+          [legend]="{ visible: widget.config.showLegend }"
+          [innerRadius]="0"
+        >
+          <series argumentField="category" valueField="value"></series>
+        </dx-pie-chart>
+
+        <dx-pie-chart
+          *ngSwitchCase="'doughnut'"
+          [dataSource]="widget.data"
+          [palette]="widget.config.palette"
+          [legend]="{ visible: widget.config.showLegend }"
+          [innerRadius]="0.5"
+        >
+          <series argumentField="category" valueField="value" type="doughnut"></series>
+        </dx-pie-chart>
+      </ng-container>
+    </div>
+  </div>
+</dx-resizable>

@@ -1,0 +1,41 @@
+<div class="config-drawer" [class.config-drawer--open]="!!widget">
+  <div class="config-drawer__header">
+    <h2>Configurações</h2>
+    <button type="button" (click)="onClose()" aria-label="Fechar">×</button>
+  </div>
+
+  <div class="config-drawer__content" *ngIf="widget as active">
+    <section class="config-section">
+      <label for="widget-title">Título</label>
+      <input id="widget-title" type="text" [(ngModel)]="form.title" placeholder="Título do gráfico" />
+    </section>
+
+    <section class="config-section">
+      <label for="widget-palette">Paleta de cores</label>
+      <select id="widget-palette" [(ngModel)]="form.palette">
+        <option *ngFor="let palette of palettes; trackBy: trackPalette" [value]="palette">
+          {{ palette }}
+        </option>
+      </select>
+    </section>
+
+    <section class="config-section config-section--inline">
+      <label for="widget-legend">Exibir legenda</label>
+      <input id="widget-legend" type="checkbox" [(ngModel)]="form.showLegend" />
+    </section>
+
+    <section class="config-section">
+      <p>Precisa de novos dados mock?</p>
+      <dx-button
+        text="Gerar dados"
+        stylingMode="outlined"
+        type="normal"
+        (onClick)="onRandomize()"
+      ></dx-button>
+    </section>
+  </div>
+
+  <footer class="config-drawer__footer" *ngIf="widget">
+    <dx-button text="Aplicar" type="default" (onClick)="onSave()"></dx-button>
+  </footer>
+</div>
