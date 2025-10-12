@@ -14,43 +14,40 @@
         <p>Arraste widgets da paleta, reordene e personalize o layout.</p>
       </div>
       <div class="workspace__actions">
-        <dx-button text="Salvar layout" type="default" (onClick)="saveLayout()"></dx-button>
-        <dx-button
-          text="Redefinir"
-          stylingMode="outlined"
-          type="normal"
-          (onClick)="resetLayout()"
-        ></dx-button>
+        <button class="dashboard-btn dashboard-btn--primary" type="button" (click)="saveLayout()">
+          Salvar layout
+        </button>
+        <button class="dashboard-btn dashboard-btn--secondary" type="button" (click)="resetLayout()">
+          Redefinir
+        </button>
       </div>
     </header>
 
     <div class="canvas-container">
-      <dx-sortable
-        class="canvas"
-        [group]="dragGroup"
-        itemOrientation="vertical"
-        [allowDropInsideItem]="false"
-        dropFeedbackMode="push"
-        [handle]="'.drag-handle'"
-        [data]="widgets"
-        (onAdd)="handleAdd($event)"
-        (onReorder)="handleReorder($event)"
-      >
-        <div *dxTemplate="let widget of 'item'" class="canvas__item">
+      <div class="canvas" #canvas>
+        <div *ngFor="let widget of widgets; trackBy: trackByWidgetId" 
+             class="canvas__item" 
+             [style.left.px]="widget.position?.x" 
+             [style.top.px]="widget.position?.y"
+             [style.position]="'absolute'"
+             (mousedown)="onWidgetMouseDown($event, widget)"
+             (dragstart)="$event.preventDefault()">
           <app-widget-card
             [widget]="widget"
             [selected]="widget.id === selectedWidgetId"
             (select)="selectWidget(widget.id)"
             (remove)="removeWidget(widget.id)"
-            (resize)="resizeWidget(widget.id, $event)"
             (configure)="openConfig(widget.id)"
-          ></app-widget-card>
+            (resize)="resizeWidget(widget.id, $event)">
+          </app-widget-card>
         </div>
-      </dx-sortable>
+      </div>
 
       <div class="canvas__empty" *ngIf="widgets.length === 0">
         <p>Arraste widgets da paleta para iniciar um novo dashboard.</p>
-        <dx-button text="Adicionar gráfico de linha" type="default" (onClick)="addWidgetFromPalette('line')"></dx-button>
+        <button class="dashboard-btn dashboard-btn--primary" type="button" (click)="addWidgetFromPalette('line')">
+          Adicionar gráfico de linha
+        </button>
       </div>
     </div>
   </section>
@@ -61,5 +58,6 @@
     (close)="closeConfig()"
     (update)="applyWidgetConfig($event)"
     (randomizeData)="refreshData()"
+    (changeDataSet)="changeDataSet($event)"
   ></app-widget-config-drawer>
 </div>

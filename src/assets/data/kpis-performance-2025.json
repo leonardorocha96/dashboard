@@ -1,0 +1,116 @@
+{
+  "kpis_vendas_2025": {
+    "resumo_executivo": {
+      "receita_total": 16100000,
+      "crescimento_anual": 8.5,
+      "margem_lucro": 22.3,
+      "clientes_ativos": 15800,
+      "ticket_medio": 1019,
+      "taxa_conversao": 3.8
+    },
+    "performance_trimestral": [
+      {
+        "trimestre": "Q1 2025",
+        "meses": ["Janeiro", "Fevereiro", "Março"],
+        "receita": 4150000,
+        "crescimento": 6.3,
+        "margem": 21.8,
+        "novos_clientes": 1250
+      },
+      {
+        "trimestre": "Q2 2025", 
+        "meses": ["Abril", "Maio", "Junho"],
+        "receita": 4850000,
+        "crescimento": 8.9,
+        "margem": 22.1,
+        "novos_clientes": 1420
+      },
+      {
+        "trimestre": "Q3 2025",
+        "meses": ["Julho", "Agosto", "Setembro"],
+        "receita": 5150000,
+        "crescimento": 7.2,
+        "margem": 22.8,
+        "novos_clientes": 1380
+      },
+      {
+        "trimestre": "Q4 2025",
+        "meses": ["Outubro", "Novembro", "Dezembro"],
+        "receita": 5930000,
+        "crescimento": 9.1,
+        "margem": 23.2,
+        "novos_clientes": 1650
+      }
+    ],
+    "analise_produtos": {
+      "smartphones": {
+        "receita": 4850000,
+        "participacao": 30.1,
+        "crescimento": 12.5,
+        "margem": 28.5
+      },
+      "laptops": {
+        "receita": 3200000,
+        "participacao": 19.9,
+        "crescimento": 8.2,
+        "margem": 18.7
+      },
+      "tablets": {
+        "receita": 2100000,
+        "participacao": 13.0,
+        "crescimento": 6.8,
+        "margem": 22.1
+      },
+      "smart_tvs": {
+        "receita": 3950000,
+        "participacao": 24.5,
+        "crescimento": 5.4,
+        "margem": 16.3
+      },
+      "acessorios": {
+        "receita": 2000000,
+        "participacao": 12.5,
+        "crescimento": 15.8,
+        "margem": 35.2
+      }
+    },
+    "tendencias_sazonais": {
+      "picos_vendas": [
+        {
+          "periodo": "Black Friday (Novembro)",
+          "aumento_vendas": 45.2,
+          "produtos_destaque": ["Smartphones", "Laptops"]
+        },
+        {
+          "periodo": "Natal (Dezembro)",
+          "aumento_vendas": 38.7,
+          "produtos_destaque": ["Smart TVs", "Acessórios"]
+        },
+        {
+          "periodo": "Volta às Aulas (Fevereiro)",
+          "aumento_vendas": 22.3,
+          "produtos_destaque": ["Laptops", "Tablets"]
+        }
+      ],
+      "baixas_vendas": [
+        {
+          "periodo": "Janeiro",
+          "reducao_vendas": 15.8,
+          "motivo": "Pós-férias"
+        },
+        {
+          "periodo": "Julho",
+          "reducao_vendas": 8.4,
+          "motivo": "Férias de inverno"
+        }
+      ]
+    },
+    "previsoes_2026": {
+      "receita_esperada": 18500000,
+      "crescimento_projetado": 14.9,
+      "novos_mercados": ["Sul", "Centro-Oeste"],
+      "lancamentos_produtos": 8,
+      "expansao_canais": ["Social Commerce", "Venda Consultiva"]
+    }
+  }
+}

@@ -5,8 +5,8 @@
 .config-drawer {
   position: fixed;
   top: 0;
-  right: -360px;
-  width: 320px;
+  right: -420px;
+  width: 380px;
   height: 100vh;
   background: #ffffff;
   box-shadow: -16px 0 40px rgba(15, 23, 42, 0.18);
@@ -28,12 +28,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1rem;
 }
 
 .config-drawer__header h2 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #0f172a;
+  font-weight: 700;
 }
 
 .config-drawer__header button {
@@ -43,6 +46,13 @@
   line-height: 1;
   cursor: pointer;
   color: #475569;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.config-drawer__header button:hover {
+  background-color: #f1f5f9;
 }
 
 .config-drawer__content {
@@ -50,44 +60,227 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
+  padding-right: 0.5rem;
 }
 
+/* Scroll customizado */
+.config-drawer__content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.config-drawer__content::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.config-drawer__content::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.config-drawer__content::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Grupos de configuração */
+.config-group {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.config-group h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #1e293b;
+  font-weight: 600;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+/* Seções de configuração */
 .config-section {
   display: grid;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .config-section label {
-  font-weight: 600;
-  color: #0f172a;
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.9rem;
 }
 
 .config-section input[type='text'],
+.config-section input[type='color'],
 .config-section select {
-  padding: 0.65rem 0.75rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  font-size: 0.95rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.config-section input[type='text']:focus,
+.config-section input[type='color']:focus,
+.config-section select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.config-section input[type='range'] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #e5e7eb;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.config-section input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.config-section input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .config-section--inline {
-  align-items: center;
   grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 .config-section--inline input[type='checkbox'] {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
+  accent-color: #3b82f6;
+  cursor: pointer;
 }
 
+/* Valor dos ranges */
+.range-value {
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 500;
+  background: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  min-width: 40px;
+  text-align: center;
+  display: inline-block;
+}
+
+.config-section:has(input[type='range']) {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.config-section:has(input[type='range']) label {
+  grid-column: 1 / -1;
+}
+
+/* Input de cor customizado */
+.config-section input[type='color'] {
+  width: 60px;
+  height: 44px;
+  padding: 4px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Campo de ajuda para conjunto de dados */
+.config-help {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Footer */
 .config-drawer__footer {
   display: flex;
   justify-content: flex-end;
+  gap: 0.75rem;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 1rem;
 }
 
+/* Botões customizados para config drawer */
+.config-btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+}
+
+.config-btn--primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.config-btn--primary:hover {
+  background: #2563eb;
+}
+
+.config-btn--outlined {
+  background: transparent;
+  color: #3b82f6;
+  border: 1px solid #3b82f6;
+}
+
+.config-btn--outlined:hover {
+  background: #eff6ff;
+}
+
+.config-btn--text {
+  background: transparent;
+  color: #6b7280;
+  border: 1px solid transparent;
+}
+
+.config-btn--text:hover {
+  background: #f9fafb;
+  color: #374151;
+}
+
+/* Responsividade */
 @media (max-width: 960px) {
   .config-drawer {
     width: 100%;
+    right: -100%;
   }
 }

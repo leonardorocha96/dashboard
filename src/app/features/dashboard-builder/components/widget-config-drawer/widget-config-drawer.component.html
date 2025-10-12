@@ -1,41 +1,248 @@
 <div class="config-drawer" [class.config-drawer--open]="!!widget">
   <div class="config-drawer__header">
-    <h2>Configurações</h2>
+    <h2>Configurações Avançadas</h2>
     <button type="button" (click)="onClose()" aria-label="Fechar">×</button>
   </div>
 
   <div class="config-drawer__content" *ngIf="widget as active">
-    <section class="config-section">
-      <label for="widget-title">Título</label>
-      <input id="widget-title" type="text" [(ngModel)]="form.title" placeholder="Título do gráfico" />
+    
+    <!-- Configurações Básicas -->
+    <section class="config-group">
+      <h3>📊 Configurações Básicas</h3>
+      
+      <div class="config-section">
+        <label for="widget-title">Título</label>
+        <input id="widget-title" type="text" [(ngModel)]="form.title" placeholder="Título do gráfico" (input)="onConfigChange()" />
+      </div>
+
+      <div class="config-section">
+        <label for="widget-palette">Paleta de cores</label>
+        <select id="widget-palette" [(ngModel)]="form.palette" (change)="onConfigChange()">
+          <option *ngFor="let palette of palettes; trackBy: trackPalette" [value]="palette">
+            {{ palette }}
+          </option>
+        </select>
+      </div>
+
+      <div class="config-section config-section--inline">
+        <label for="widget-legend">Exibir legenda</label>
+        <input id="widget-legend" type="checkbox" [(ngModel)]="form.showLegend" (change)="onConfigChange()" />
+      </div>
     </section>
 
-    <section class="config-section">
-      <label for="widget-palette">Paleta de cores</label>
-      <select id="widget-palette" [(ngModel)]="form.palette">
-        <option *ngFor="let palette of palettes; trackBy: trackPalette" [value]="palette">
-          {{ palette }}
-        </option>
-      </select>
+    <!-- Configurações de Aparência -->
+    <section class="config-group">
+      <h3>🎨 Aparência</h3>
+      
+      <div class="config-section">
+        <label for="widget-bg-color">Cor de fundo</label>
+        <input id="widget-bg-color" type="color" [(ngModel)]="form.backgroundColor" (change)="onConfigChange()" />
+      </div>
+
+      <div class="config-section">
+        <label for="widget-border-color">Cor da borda</label>
+        <input id="widget-border-color" type="color" [(ngModel)]="form.borderColor" (change)="onConfigChange()" />
+      </div>
+
+      <div class="config-section">
+        <label for="widget-border-width">Largura da borda</label>
+        <input id="widget-border-width" type="range" min="0" max="5" [(ngModel)]="form.borderWidth" />
+        <span class="range-value">{{ form.borderWidth }}px</span>
+      </div>
+
+      <div class="config-section">
+        <label for="widget-border-radius">Raio da borda</label>
+        <input id="widget-border-radius" type="range" min="0" max="20" [(ngModel)]="form.borderRadius" />
+        <span class="range-value">{{ form.borderRadius }}px</span>
+      </div>
     </section>
 
-    <section class="config-section config-section--inline">
-      <label for="widget-legend">Exibir legenda</label>
-      <input id="widget-legend" type="checkbox" [(ngModel)]="form.showLegend" />
+    <!-- Configurações de Eixos/Grid -->
+    <section class="config-group" *ngIf="isLineOrBarChart()">
+      <h3>📏 Eixos e Grade</h3>
+      
+      <div class="config-section config-section--inline">
+        <label for="widget-show-grid">Exibir grade</label>
+        <input id="widget-show-grid" type="checkbox" [(ngModel)]="form.showGrid" />
+      </div>
+
+      <div class="config-section" *ngIf="form.showGrid">
+        <label for="widget-grid-color">Cor da grade</label>
+        <input id="widget-grid-color" type="color" [(ngModel)]="form.gridColor" />
+      </div>
+
+      <div class="config-section">
+        <label for="widget-x-axis-title">Título do eixo X</label>
+        <input id="widget-x-axis-title" type="text" [(ngModel)]="form.xAxisTitle" placeholder="Ex: Meses" />
+      </div>
+
+      <div class="config-section">
+        <label for="widget-y-axis-title">Título do eixo Y</label>
+        <input id="widget-y-axis-title" type="text" [(ngModel)]="form.yAxisTitle" placeholder="Ex: Vendas (R$)" />
+      </div>
+
+      <div class="config-section config-section--inline">
+        <label for="widget-show-x-labels">Rótulos eixo X</label>
+        <input id="widget-show-x-labels" type="checkbox" [(ngModel)]="form.showXAxisLabels" />
+      </div>
+
+      <div class="config-section config-section--inline">
+        <label for="widget-show-y-labels">Rótulos eixo Y</label>
+        <input id="widget-show-y-labels" type="checkbox" [(ngModel)]="form.showYAxisLabels" />
+      </div>
     </section>
 
-    <section class="config-section">
-      <p>Precisa de novos dados mock?</p>
-      <dx-button
-        text="Gerar dados"
-        stylingMode="outlined"
-        type="normal"
-        (onClick)="onRandomize()"
-      ></dx-button>
+    <!-- Configurações de Linha -->
+    <section class="config-group" *ngIf="isLineChart()">
+      <h3>📈 Configurações de Linha</h3>
+      
+      <div class="config-section">
+        <label for="widget-line-style">Estilo da linha</label>
+        <select id="widget-line-style" [(ngModel)]="form.lineStyle">
+          <option value="solid">Sólida</option>
+          <option value="dashed">Tracejada</option>
+          <option value="dotted">Pontilhada</option>
+        </select>
+      </div>
+
+      <div class="config-section">
+        <label for="widget-line-width">Largura da linha</label>
+        <input id="widget-line-width" type="range" min="1" max="8" [(ngModel)]="form.lineWidth" />
+        <span class="range-value">{{ form.lineWidth }}px</span>
+      </div>
+
+      <div class="config-section config-section--inline">
+        <label for="widget-show-markers">Exibir marcadores</label>
+        <input id="widget-show-markers" type="checkbox" [(ngModel)]="form.showMarkers" />
+      </div>
+
+      <div class="config-section" *ngIf="form.showMarkers">
+        <label for="widget-marker-size">Tamanho dos marcadores</label>
+        <input id="widget-marker-size" type="range" min="2" max="12" [(ngModel)]="form.markerSize" />
+        <span class="range-value">{{ form.markerSize }}px</span>
+      </div>
     </section>
+
+    <!-- Configurações de Barra -->
+    <section class="config-group" *ngIf="isBarChart()">
+      <h3>📊 Configurações de Barra</h3>
+      
+      <div class="config-section">
+        <label for="widget-bar-spacing">Espaçamento das barras</label>
+        <input id="widget-bar-spacing" type="range" min="0" max="1" step="0.1" [(ngModel)]="form.barSpacing" />
+        <span class="range-value">{{ form.barSpacing }}</span>
+      </div>
+
+      <div class="config-section">
+        <label for="widget-bar-radius">Raio das barras</label>
+        <input id="widget-bar-radius" type="range" min="0" max="10" [(ngModel)]="form.barCornerRadius" />
+        <span class="range-value">{{ form.barCornerRadius }}px</span>
+      </div>
+    </section>
+
+    <!-- Configurações de Pizza/Rosca -->
+    <section class="config-group" *ngIf="isPieOrDoughnutChart()">
+      <h3>🥧 Configurações de Pizza</h3>
+      
+      <div class="config-section" *ngIf="isDoughnutChart()">
+        <label for="widget-inner-radius">Raio interno</label>
+        <input id="widget-inner-radius" type="range" min="0" max="0.8" step="0.1" [(ngModel)]="form.innerRadius" />
+        <span class="range-value">{{ (form.innerRadius * 100) | number:'1.0-0' }}%</span>
+      </div>
+
+      <div class="config-section">
+        <label for="widget-start-angle">Ângulo inicial</label>
+        <input id="widget-start-angle" type="range" min="0" max="360" [(ngModel)]="form.startAngle" />
+        <span class="range-value">{{ form.startAngle }}°</span>
+      </div>
+
+      <div class="config-section config-section--inline">
+        <label for="widget-show-labels">Exibir rótulos</label>
+        <input id="widget-show-labels" type="checkbox" [(ngModel)]="form.showLabels" />
+      </div>
+
+      <div class="config-section" *ngIf="form.showLabels">
+        <label for="widget-label-position">Posição dos rótulos</label>
+        <select id="widget-label-position" [(ngModel)]="form.labelPosition">
+          <option value="inside">Dentro</option>
+          <option value="outside">Fora</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Configurações de Tooltips -->
+    <section class="config-group">
+      <h3>💬 Tooltips</h3>
+      
+      <div class="config-section config-section--inline">
+        <label for="widget-show-tooltips">Exibir tooltips</label>
+        <input id="widget-show-tooltips" type="checkbox" [(ngModel)]="form.showTooltips" />
+      </div>
+
+      <div class="config-section" *ngIf="form.showTooltips">
+        <label for="widget-tooltip-format">Formato dos tooltips</label>
+        <select id="widget-tooltip-format" [(ngModel)]="form.tooltipFormat">
+          <option value="currency">Moeda (R$)</option>
+          <option value="number">Número</option>
+          <option value="percentage">Porcentagem (%)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Configurações de Animação -->
+    <section class="config-group">
+      <h3>✨ Animação</h3>
+      
+      <div class="config-section config-section--inline">
+        <label for="widget-enable-animation">Habilitar animação</label>
+        <input id="widget-enable-animation" type="checkbox" [(ngModel)]="form.enableAnimation" />
+      </div>
+
+      <div class="config-section" *ngIf="form.enableAnimation">
+        <label for="widget-animation-duration">Duração da animação</label>
+        <input id="widget-animation-duration" type="range" min="200" max="3000" step="100" [(ngModel)]="form.animationDuration" />
+        <span class="range-value">{{ form.animationDuration }}ms</span>
+      </div>
+    </section>
+
+    <!-- Configurações de Dados -->
+    <section class="config-group">
+      <h3>📊 Dados</h3>
+      
+      <div class="config-section">
+        <label for="widget-dataset">Conjunto de dados</label>
+        <select id="widget-dataset" [(ngModel)]="form.dataSetId" (change)="onConfigChange()">>
+          <option *ngFor="let dataSet of dataSets" [value]="dataSet.id">
+            {{ dataSet.name }}
+          </option>
+        </select>
+        <small class="config-help" *ngIf="form.dataSetId">
+          {{ getDataSetDescription() }}
+        </small>
+      </div>
+      
+      <div class="config-section config-section--inline" *ngIf="isLineOrBarChart()">
+        <label for="widget-show-secondary">Exibir dados secundários</label>
+        <input id="widget-show-secondary" type="checkbox" [(ngModel)]="form.showSecondaryData" (change)="onConfigChange()" />
+      </div>
+
+      <div class="config-section" *ngIf="form.showSecondaryData && isLineOrBarChart()">
+        <label for="widget-secondary-name">Nome dos dados secundários</label>
+        <input id="widget-secondary-name" type="text" [(ngModel)]="form.secondaryDataName" placeholder="Ex: Meta, Target" (input)="onConfigChange()" />
+      </div>
+
+      <div class="config-section">
+        <p>Precisa de novos dados mock?</p>
+        <button class="config-btn config-btn--outlined" type="button" (click)="onRandomizeData()">
+          Gerar dados
+        </button>
+      </div>
+    </section>
+
   </div>
 
   <footer class="config-drawer__footer" *ngIf="widget">
-    <dx-button text="Aplicar" type="default" (onClick)="onSave()"></dx-button>
+    <button class="config-btn config-btn--primary" type="button" (click)="onSave()">Aplicar</button>
+    <button class="config-btn config-btn--text" type="button" (click)="onClose()">Cancelar</button>
   </footer>
 </div>

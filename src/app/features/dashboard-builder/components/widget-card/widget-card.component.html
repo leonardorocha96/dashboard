@@ -1,81 +1,210 @@
-<dx-resizable
-  class="resizable"
-  [width]="widget.size.width"
-  [height]="widget.size.height"
-  [handles]="'all'"
-  [minWidth]="320"
-  [minHeight]="260"
-  (onResizeEnd)="onResizeEnd($event)"
+<div 
+  class="widget-card resizable" 
+  [class.widget-card--selected]="selected" 
+  [style.width.px]="widget.size.width"
+  [style.height.px]="widget.size.height"
+  (click)="onSelect()"
+  (mousedown)="onDragStart($event)"
 >
-  <div class="widget-card" [class.widget-card--selected]="selected" (click)="onSelect()">
     <header class="widget-card__header">
       <span class="drag-handle" aria-hidden="true">⠿</span>
       <div class="widget-card__title">
         <h3>{{ widget.config.title }}</h3>
-        <small>{{ widget.type | titlecase }}</small>
+        <small>{{ getTypeLabel(widget.type) }}</small>
       </div>
       <div class="widget-card__actions">
-        <dx-button
-          text="Configurar"
-          stylingMode="text"
-          type="default"
-          (onClick)="onConfigureClick($event)"
-        ></dx-button>
-        <dx-button
-          text="Remover"
-          stylingMode="text"
-          type="danger"
-          (onClick)="onRemoveClick($event)"
-        ></dx-button>
+        <button
+          class="widget-btn widget-btn--text"
+          type="button"
+          (click)="onConfigureClick($event)"
+        >
+          Configurar
+        </button>
+        <button
+          class="widget-btn widget-btn--danger"
+          type="button"
+          (click)="onRemoveClick($event)"
+        >
+          Remover
+        </button>
       </div>
     </header>
 
     <div class="widget-card__body">
       <ng-container [ngSwitch]="widget.type">
+        <!-- Gráfico de Linha -->
         <dx-chart
           *ngSwitchCase="'line'"
           [dataSource]="widget.data"
           [palette]="widget.config.palette"
           [legend]="{ visible: widget.config.showLegend }"
           [adaptiveLayout]="{ width: 250 }"
+          [animation]="{ enabled: widget.config.enableAnimation, duration: widget.config.animationDuration }"
         >
-          <common-series-settings argumentField="category" type="line"></common-series-settings>
-          <series valueField="value" name="Receita"></series>
-          <series *ngIf="widget.data[0]?.secondaryValue" valueField="secondaryValue" name="Meta"></series>
+          <!-- Configurações de Grid -->
+          <grid 
+            [visible]="widget.config.showGrid"
+            [color]="widget.config.gridColor">
+          </grid>
+          
+          <!-- Eixo X -->
+          <argument-axis 
+            [label]="{ visible: widget.config.showXAxisLabels }"
+            [title]="{ text: widget.config.xAxisTitle }">
+          </argument-axis>
+          
+          <!-- Eixo Y -->
+          <value-axis 
+            [label]="{ visible: widget.config.showYAxisLabels }"
+            [title]="{ text: widget.config.yAxisTitle }">
+          </value-axis>
+          
+          <!-- Configurações da Linha -->
+          <common-series-settings 
+            argumentField="category" 
+            type="line"
+            [line]="{ 
+              width: widget.config.lineWidth,
+              dashStyle: widget.config.lineStyle
+            }"
+            [point]="{ 
+              visible: widget.config.showMarkers,
+              size: widget.config.markerSize
+            }">
+          </common-series-settings>
+          
+          <!-- Séries de Dados -->
+          <series valueField="value" name="Vendas"></series>
+          <series 
+            *ngIf="widget.config.showSecondaryData && widget.data[0]?.secondaryValue" 
+            valueField="secondaryValue" 
+            [name]="widget.config.secondaryDataName">
+          </series>
+          
+          <!-- Tooltip -->
+          <tooltip 
+            [enabled]="widget.config.showTooltips"
+            [format]="getTooltipFormat()">
+          </tooltip>
         </dx-chart>
 
+        <!-- Gráfico de Barras -->
         <dx-chart
           *ngSwitchCase="'bar'"
           [dataSource]="widget.data"
           [palette]="widget.config.palette"
           [legend]="{ visible: widget.config.showLegend }"
           [adaptiveLayout]="{ width: 250 }"
+          [animation]="{ enabled: widget.config.enableAnimation, duration: widget.config.animationDuration }"
         >
-          <common-series-settings argumentField="category" type="bar"></common-series-settings>
-          <series valueField="value" name="Receita"></series>
-          <series *ngIf="widget.data[0]?.secondaryValue" valueField="secondaryValue" name="Meta"></series>
+          <!-- Configurações de Grid -->
+          <grid 
+            [visible]="widget.config.showGrid"
+            [color]="widget.config.gridColor">
+          </grid>
+          
+          <!-- Eixo X -->
+          <argument-axis 
+            [label]="{ visible: widget.config.showXAxisLabels }"
+            [title]="{ text: widget.config.xAxisTitle }">
+          </argument-axis>
+          
+          <!-- Eixo Y -->
+          <value-axis 
+            [label]="{ visible: widget.config.showYAxisLabels }"
+            [title]="{ text: widget.config.yAxisTitle }">
+          </value-axis>
+          
+          <!-- Configurações das Barras -->
+          <common-series-settings 
+            argumentField="category" 
+            type="bar"
+            [barPadding]="widget.config.barSpacing"
+            [cornerRadius]="widget.config.barCornerRadius">
+          </common-series-settings>
+          
+          <!-- Séries de Dados -->
+          <series valueField="value" name="Vendas"></series>
+          <series 
+            *ngIf="widget.config.showSecondaryData && widget.data[0]?.secondaryValue" 
+            valueField="secondaryValue" 
+            [name]="widget.config.secondaryDataName">
+          </series>
+          
+          <!-- Tooltip -->
+          <tooltip 
+            [enabled]="widget.config.showTooltips"
+            [format]="getTooltipFormat()">
+          </tooltip>
         </dx-chart>
 
+        <!-- Gráfico de Pizza -->
         <dx-pie-chart
           *ngSwitchCase="'pie'"
           [dataSource]="widget.data"
           [palette]="widget.config.palette"
           [legend]="{ visible: widget.config.showLegend }"
-          [innerRadius]="0"
+          [innerRadius]="widget.config.innerRadius"
+          [startAngle]="widget.config.startAngle"
+          [animation]="{ enabled: widget.config.enableAnimation, duration: widget.config.animationDuration }"
         >
-          <series argumentField="category" valueField="value"></series>
+          <series 
+            argumentField="category" 
+            valueField="value"
+            [label]="{ 
+              visible: widget.config.showLabels,
+              position: widget.config.labelPosition,
+              format: getTooltipFormat()
+            }">
+          </series>
+          
+          <!-- Tooltip -->
+          <tooltip 
+            [enabled]="widget.config.showTooltips"
+            [format]="getTooltipFormat()">
+          </tooltip>
         </dx-pie-chart>
 
+        <!-- Gráfico de Rosca -->
         <dx-pie-chart
           *ngSwitchCase="'doughnut'"
           [dataSource]="widget.data"
           [palette]="widget.config.palette"
           [legend]="{ visible: widget.config.showLegend }"
-          [innerRadius]="0.5"
+          [innerRadius]="widget.config.innerRadius"
+          [startAngle]="widget.config.startAngle"
+          [animation]="{ enabled: widget.config.enableAnimation, duration: widget.config.animationDuration }"
         >
-          <series argumentField="category" valueField="value" type="doughnut"></series>
+          <series 
+            argumentField="category" 
+            valueField="value" 
+            type="doughnut"
+            [label]="{ 
+              visible: widget.config.showLabels,
+              position: widget.config.labelPosition,
+              format: getTooltipFormat()
+            }">
+          </series>
+          
+          <!-- Tooltip -->
+          <tooltip 
+            [enabled]="widget.config.showTooltips"
+            [format]="getTooltipFormat()">
+          </tooltip>
         </dx-pie-chart>
       </ng-container>
     </div>
-  </div>
-</dx-resizable>
+    
+    <!-- Resize handles - 8 direções completas -->
+    <!-- Cantos -->
+    <div class="resize-handle resize-handle--nw" (mousedown)="onResizeStart($event, 'nw')"></div>
+    <div class="resize-handle resize-handle--ne" (mousedown)="onResizeStart($event, 'ne')"></div>
+    <div class="resize-handle resize-handle--sw" (mousedown)="onResizeStart($event, 'sw')"></div>
+    <div class="resize-handle resize-handle--se" (mousedown)="onResizeStart($event, 'se')"></div>
+    
+    <!-- Lados -->
+    <div class="resize-handle resize-handle--n" (mousedown)="onResizeStart($event, 'n')"></div>
+    <div class="resize-handle resize-handle--s" (mousedown)="onResizeStart($event, 's')"></div>
+    <div class="resize-handle resize-handle--w" (mousedown)="onResizeStart($event, 'w')"></div>
+    <div class="resize-handle resize-handle--e" (mousedown)="onResizeStart($event, 'e')"></div>
+</div>

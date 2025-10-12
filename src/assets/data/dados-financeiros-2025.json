@@ -1,0 +1,169 @@
+{
+  "dados_financeiros_2025": {
+    "meta": "Dados financeiros completos para 2025",
+    "periodo": "Janeiro - Dezembro 2025",
+    "moeda": "BRL",
+    "receitas_despesas_mensais": [
+      {
+        "mes": "Janeiro",
+        "receitas": 2850000,
+        "despesas": 2100000,
+        "lucro_liquido": 750000,
+        "margem": 26.3
+      },
+      {
+        "mes": "Fevereiro",
+        "receitas": 3120000,
+        "despesas": 2280000,
+        "lucro_liquido": 840000,
+        "margem": 26.9
+      },
+      {
+        "mes": "Março",
+        "receitas": 3450000,
+        "despesas": 2520000,
+        "lucro_liquido": 930000,
+        "margem": 27.0
+      },
+      {
+        "mes": "Abril",
+        "receitas": 3280000,
+        "despesas": 2410000,
+        "lucro_liquido": 870000,
+        "margem": 26.5
+      },
+      {
+        "mes": "Maio",
+        "receitas": 3680000,
+        "despesas": 2650000,
+        "lucro_liquido": 1030000,
+        "margem": 28.0
+      },
+      {
+        "mes": "Junho",
+        "receitas": 3920000,
+        "despesas": 2780000,
+        "lucro_liquido": 1140000,
+        "margem": 29.1
+      },
+      {
+        "mes": "Julho",
+        "receitas": 3580000,
+        "despesas": 2650000,
+        "lucro_liquido": 930000,
+        "margem": 26.0
+      },
+      {
+        "mes": "Agosto",
+        "receitas": 4120000,
+        "despesas": 2980000,
+        "lucro_liquido": 1140000,
+        "margem": 27.7
+      },
+      {
+        "mes": "Setembro",
+        "receitas": 3950000,
+        "despesas": 2890000,
+        "lucro_liquido": 1060000,
+        "margem": 26.8
+      },
+      {
+        "mes": "Outubro",
+        "receitas": 4380000,
+        "despesas": 3150000,
+        "lucro_liquido": 1230000,
+        "margem": 28.1
+      },
+      {
+        "mes": "Novembro",
+        "receitas": 4220000,
+        "despesas": 3080000,
+        "lucro_liquido": 1140000,
+        "margem": 27.0
+      },
+      {
+        "mes": "Dezembro",
+        "receitas": 4680000,
+        "despesas": 3350000,
+        "lucro_liquido": 1330000,
+        "margem": 28.4
+      }
+    ],
+    "investimentos_trimestre": [
+      {
+        "categoria": "Marketing Digital",
+        "valor": 1850000,
+        "roi": 145.2,
+        "participacao": 28.5
+      },
+      {
+        "categoria": "Pesquisa & Desenvolvimento",
+        "valor": 1450000,
+        "roi": 280.6,
+        "participacao": 22.3
+      },
+      {
+        "categoria": "Infraestrutura TI",
+        "valor": 1200000,
+        "roi": 190.4,
+        "participacao": 18.5
+      },
+      {
+        "categoria": "Recursos Humanos",
+        "valor": 1100000,
+        "roi": 165.8,
+        "participacao": 16.9
+      },
+      {
+        "categoria": "Expansão Física",
+        "valor": 900000,
+        "roi": 125.3,
+        "participacao": 13.8
+      }
+    ],
+    "fluxo_caixa_categoria": [
+      {
+        "categoria": "Entrada Operacional",
+        "valor": 42850000,
+        "percentual": 78.5
+      },
+      {
+        "categoria": "Entrada Investimentos",
+        "valor": 8200000,
+        "percentual": 15.0
+      },
+      {
+        "categoria": "Entrada Financiamentos",
+        "valor": 3550000,
+        "percentual": 6.5
+      }
+    ],
+    "despesas_operacionais": [
+      {
+        "categoria": "Pessoal",
+        "valor": 15200000,
+        "percentual": 42.8
+      },
+      {
+        "categoria": "Marketing",
+        "valor": 7400000,
+        "percentual": 20.8
+      },
+      {
+        "categoria": "Infraestrutura",
+        "valor": 5800000,
+        "percentual": 16.3
+      },
+      {
+        "categoria": "Impostos",
+        "valor": 4200000,
+        "percentual": 11.8
+      },
+      {
+        "categoria": "Outros",
+        "valor": 2900000,
+        "percentual": 8.3
+      }
+    ]
+  }
+}

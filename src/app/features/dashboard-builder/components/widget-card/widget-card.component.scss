@@ -1,9 +1,11 @@
 :host {
   display: block;
+  position: relative;
 }
 
 .resizable {
   width: 100%;
+  position: relative !important;
 }
 
 .widget-card {
@@ -75,4 +77,205 @@
 .widget-card__body .dx-pie-chart,
 .widget-card__body .dx-chart {
   min-height: 220px;
+}
+
+/* Garantir que as alças de redimensionamento sejam visíveis */
+:host ::ng-deep .dx-resizable-handle {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background-color: #2563eb;
+  border-radius: 2px;
+}
+
+:host:hover ::ng-deep .dx-resizable-handle,
+:host ::ng-deep .dx-resizable-handle:hover {
+  opacity: 0.8;
+}
+
+:host ::ng-deep .dx-resizable-handle:active {
+  opacity: 1;
+}
+
+/* Estilos específicos para cada alça */
+:host ::ng-deep .dx-resizable-handle-corner-top-left,
+:host ::ng-deep .dx-resizable-handle-corner-top-right,
+:host ::ng-deep .dx-resizable-handle-corner-bottom-left,
+:host ::ng-deep .dx-resizable-handle-corner-bottom-right {
+  width: 8px;
+  height: 8px;
+}
+
+:host ::ng-deep .dx-resizable-handle-top,
+:host ::ng-deep .dx-resizable-handle-bottom {
+  height: 4px;
+  left: 8px;
+  right: 8px;
+}
+
+:host ::ng-deep .dx-resizable-handle-left,
+:host ::ng-deep .dx-resizable-handle-right {
+  width: 4px;
+  top: 8px;
+  bottom: 8px;
+}
+
+/* Botões customizados para widget-card */
+.widget-btn {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+}
+
+.widget-btn--text {
+  background: transparent;
+  color: #3b82f6;
+  border: 1px solid transparent;
+}
+
+.widget-btn--text:hover {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.widget-btn--danger {
+  background: transparent;
+  color: #dc2626;
+  border: 1px solid transparent;
+}
+
+.widget-btn--danger:hover {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+/* Estilos para estado de resize */
+.widget-card--resizing {
+  transition: none !important;
+  user-select: none;
+  pointer-events: none;
+}
+
+.widget-card--resizing * {
+  pointer-events: none;
+}
+
+.widget-card--resizing .resize-handle {
+  pointer-events: auto;
+}
+
+/* Melhorar os handles de resize - 8 direções completas */
+.resize-handle {
+  position: absolute;
+  background: #2563eb;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.widget-card:hover .resize-handle {
+  opacity: 1;
+}
+
+.widget-card--selected .resize-handle {
+  opacity: 1;
+}
+
+/* Handles dos cantos - 10x10px */
+.resize-handle--nw {
+  width: 10px;
+  height: 10px;
+  top: -5px;
+  left: -5px;
+  cursor: nw-resize;
+}
+
+.resize-handle--ne {
+  width: 10px;
+  height: 10px;
+  top: -5px;
+  right: -5px;
+  cursor: ne-resize;
+}
+
+.resize-handle--sw {
+  width: 10px;
+  height: 10px;
+  bottom: -5px;
+  left: -5px;
+  cursor: sw-resize;
+}
+
+.resize-handle--se {
+  width: 10px;
+  height: 10px;
+  bottom: -5px;
+  right: -5px;
+  cursor: se-resize;
+}
+
+/* Handles dos lados */
+.resize-handle--n {
+  width: 20px;
+  height: 6px;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: ns-resize;
+}
+
+.resize-handle--s {
+  width: 20px;
+  height: 6px;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: ns-resize;
+}
+
+.resize-handle--w {
+  width: 6px;
+  height: 20px;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: ew-resize;
+}
+
+.resize-handle--e {
+  width: 6px;
+  height: 20px;
+  right: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: ew-resize;
+}
+
+/* Hover effects para todos os handles */
+.resize-handle:hover {
+  background: #1d4ed8;
+  transform: scale(1.15);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* Preservar transforms específicos no hover */
+.resize-handle--n:hover,
+.resize-handle--s:hover {
+  transform: translateX(-50%) scale(1.15);
+}
+
+.resize-handle--w:hover,
+.resize-handle--e:hover {
+  transform: translateY(-50%) scale(1.15);
 }

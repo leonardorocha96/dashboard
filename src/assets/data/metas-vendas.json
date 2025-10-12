@@ -1,0 +1,120 @@
+{
+  "id": "metas-vendas",
+  "name": "Metas e Vendas",
+  "description": "Dashboard com KPIs, gráfico mensal e tabela detalhada.",
+  "createdAt": "2024-03-10T00:00:00.000Z",
+  "updatedAt": "2024-03-10T00:00:00.000Z",
+  "createdBy": "demo",
+  "updatedBy": "demo",
+  "settings": { "theme": "default", "resolutionClass": "desktop", "previewScale": 1 },
+  "layout": {
+    "id": "layout-metas",
+    "name": "Grade 12x12",
+    "grid": {
+      "gridTemplateColumns": "repeat(12, 1fr)",
+      "gridTemplateRows": "repeat(12, minmax(60px, auto))",
+      "gap": "1rem",
+      "backgroundColor": "var(--canvas-background)"
+    },
+    "filterBar": {
+      "backgroundColor": "#ffffff",
+      "fixed": true,
+      "showApplyButton": true,
+      "requireSelectionBeforeRender": false
+    },
+    "components": [
+      {
+        "id": "kpi-metas",
+        "componentType": "board",
+        "title": "Meta vs Realizado",
+        "position": { "colStart": 1, "colSpan": 4, "rowStart": 1, "rowSpan": 2 },
+        "style": { "zIndex": 1 },
+        "view": {
+          "id": "view-kpi",
+          "componentId": "kpi-metas",
+          "mode": "analysis",
+          "source": "sales_summary",
+          "dimensions": ["Mês"],
+          "measures": ["Meta", "Vendas", "Variação"]
+        },
+        "filters": [
+          { "filterId": "dataInicial" },
+          { "filterId": "dataFinal" },
+          { "filterId": "vendedor" }
+        ],
+        "actions": [
+          {
+            "id": "kpi-open-modal",
+            "type": "openDetailsModal",
+            "label": "Detalhes",
+            "trigger": "onClick",
+            "target": { "viewId": "view-detalhes" },
+            "audit": true
+          }
+        ]
+      },
+      {
+        "id": "chart-mensal",
+        "componentType": "chart",
+        "title": "Vendas Mensais",
+        "position": { "colStart": 5, "colSpan": 8, "rowStart": 1, "rowSpan": 4 },
+        "style": { "zIndex": 1 },
+        "view": {
+          "id": "view-chart",
+          "componentId": "chart-mensal",
+          "mode": "analysis",
+          "source": "sales_summary",
+          "dimensions": ["Mês"],
+          "measures": ["Vendas", "Meta"]
+        },
+        "filters": [
+          { "filterId": "dataInicial" },
+          { "filterId": "dataFinal" },
+          { "filterId": "vendedor" }
+        ],
+        "actions": [
+          {
+            "id": "chart-filter-table",
+            "type": "filterOtherComponents",
+            "label": "Filtrar tabela",
+            "trigger": "onSelectionChange",
+            "target": { "componentIds": ["tabela-detalhes"] },
+            "payload": { "filters": [{ "filterId": "vendedor", "value": "@selection" }] }
+          }
+        ]
+      },
+      {
+        "id": "tabela-detalhes",
+        "componentType": "data-grid",
+        "title": "Detalhe de Vendas",
+        "position": { "colStart": 1, "colSpan": 12, "rowStart": 5, "rowSpan": 7 },
+        "style": { "zIndex": 1 },
+        "view": {
+          "id": "view-tabela",
+          "componentId": "tabela-detalhes",
+          "mode": "catalog",
+          "table": "sales_orders",
+          "primaryKey": "id",
+          "searchableFields": ["cliente", "vendedor"],
+          "pageSize": 20
+        },
+        "filters": [
+          { "filterId": "dataInicial" },
+          { "filterId": "dataFinal" },
+          { "filterId": "vendedor" }
+        ],
+        "actions": [
+          {
+            "id": "grid-export",
+            "type": "apiCall",
+            "label": "Exportar",
+            "trigger": "onClick",
+            "target": { "endpoint": "/api/export", "method": "POST" },
+            "payload": { "dataset": [], "filename": "vendas" },
+            "rateLimitPerMinute": 10
+          }
+        ]
+      }
+    ]
+  }
+}
