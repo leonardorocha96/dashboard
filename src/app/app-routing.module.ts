@@ -2,16 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'builder/pages/default-page', pathMatch: 'full' },
-  {
-    path: 'builder',
-    loadChildren: () => import('./modules/builder/builder.module').then((m) => m.BuilderModule),
+  { 
+    path: '', 
+    loadChildren: () => import('./features/dashboard-builder/dashboard-builder.module').then(m => m.DashboardBuilderModule)
   },
-  {
-    path: 'runtime',
-    loadChildren: () => import('./modules/runtime/runtime.module').then((m) => m.RuntimeModule),
-  },
-  { path: '**', redirectTo: 'builder/pages/default-page' },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

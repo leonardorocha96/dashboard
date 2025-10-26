@@ -1,0 +1,208 @@
+:host {
+  display: block;
+  height: 100vh;
+  background: linear-gradient(180deg, #f7f9fc 0%, #eef2f7 100%);
+}
+
+.dashboard-builder {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  height: 100%;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  background: #0f172a;
+  color: #fff;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  box-shadow: 4px 0 24px rgba(15, 23, 42, 0.3);
+  z-index: 2;
+}
+
+.workspace {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.workspace__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 2rem 2.5rem 1.5rem;
+}
+
+.workspace__header h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 2vw, 2rem);
+  color: #0f172a;
+}
+
+.workspace__header p {
+  margin: 0.35rem 0 0;
+  color: #475569;
+}
+
+.workspace__actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.canvas-container {
+  flex: 1;
+  padding: 0 2.5rem 2.5rem;
+  overflow: auto;
+}
+
+.canvas {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  overflow: auto;
+}
+
+.canvas__item {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+.canvas__item.dragging {
+  cursor: grabbing;
+  z-index: 999;
+  user-select: none;
+  touch-action: none;
+}
+
+/* Estilos para o redimensionamento */
+.canvas__item dx-resizable {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.canvas__item .dx-resizable {
+  position: relative;
+}
+
+.canvas__item .dx-resizable-handle {
+  pointer-events: auto !important;
+  user-select: none;
+  touch-action: none;
+  z-index: 10;
+}
+
+.canvas__item .dx-resizable-handle:hover {
+  background-color: #2563eb;
+}
+
+/* Permitir cursor grab apenas no header do widget */
+.canvas__item .widget-card__header {
+  cursor: grab;
+}
+
+.canvas__item.dragging .widget-card__header {
+  cursor: grabbing;
+}
+
+.canvas__empty {
+  margin-top: 2rem;
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px dashed rgba(148, 163, 184, 0.6);
+  padding: 2rem;
+  text-align: center;
+  border-radius: 16px;
+  color: #475569;
+  display: grid;
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.drag-handle {
+  cursor: grab;
+  display: inline-block;
+  padding: 0.5rem;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.resizable {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  transition: box-shadow 0.2s ease;
+}
+
+.canvas__item:hover .resizable,
+.canvas__item.dx-drag-source .resizable {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.canvas__item.dx-drag-source .resizable {
+  transform: rotate(2deg);
+  opacity: 0.9;
+}
+
+/* Botões customizados para o dashboard */
+.dashboard-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+}
+
+.dashboard-btn--primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.dashboard-btn--primary:hover {
+  background: #2563eb;
+}
+
+.dashboard-btn--secondary {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.dashboard-btn--secondary:hover {
+  background: #e2e8f0;
+}
+
+@media (max-width: 960px) {
+  .dashboard-builder {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}

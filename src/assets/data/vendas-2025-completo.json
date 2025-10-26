@@ -1,0 +1,189 @@
+{
+  "vendas_2025": {
+    "meta": "Dados de vendas completos para 2025",
+    "periodo": "Janeiro - Dezembro 2025",
+    "moeda": "BRL",
+    "vendas_mensais": [
+      {
+        "mes": "Janeiro",
+        "vendas_realizadas": 1250000,
+        "meta": 1200000,
+        "crescimento_percentual": 4.2,
+        "produtos_vendidos": 3250
+      },
+      {
+        "mes": "Fevereiro", 
+        "vendas_realizadas": 1380000,
+        "meta": 1300000,
+        "crescimento_percentual": 6.1,
+        "produtos_vendidos": 3580
+      },
+      {
+        "mes": "Março",
+        "vendas_realizadas": 1520000,
+        "meta": 1400000,
+        "crescimento_percentual": 8.6,
+        "produtos_vendidos": 3920
+      },
+      {
+        "mes": "Abril",
+        "vendas_realizadas": 1480000,
+        "meta": 1450000,
+        "crescimento_percentual": 2.1,
+        "produtos_vendidos": 3850
+      },
+      {
+        "mes": "Maio",
+        "vendas_realizadas": 1650000,
+        "meta": 1500000,
+        "crescimento_percentual": 10.0,
+        "produtos_vendidos": 4250
+      },
+      {
+        "mes": "Junho",
+        "vendas_realizadas": 1720000,
+        "meta": 1600000,
+        "crescimento_percentual": 7.5,
+        "produtos_vendidos": 4450
+      },
+      {
+        "mes": "Julho",
+        "vendas_realizadas": 1580000,
+        "meta": 1550000,
+        "crescimento_percentual": 1.9,
+        "produtos_vendidos": 4080
+      },
+      {
+        "mes": "Agosto",
+        "vendas_realizadas": 1820000,
+        "meta": 1700000,
+        "crescimento_percentual": 7.1,
+        "produtos_vendidos": 4700
+      },
+      {
+        "mes": "Setembro",
+        "vendas_realizadas": 1750000,
+        "meta": 1650000,
+        "crescimento_percentual": 6.1,
+        "produtos_vendidos": 4520
+      },
+      {
+        "mes": "Outubro",
+        "vendas_realizadas": 1950000,
+        "meta": 1800000,
+        "crescimento_percentual": 8.3,
+        "produtos_vendidos": 5050
+      },
+      {
+        "mes": "Novembro",
+        "vendas_realizadas": 1880000,
+        "meta": 1750000,
+        "crescimento_percentual": 7.4,
+        "produtos_vendidos": 4850
+      },
+      {
+        "mes": "Dezembro",
+        "vendas_realizadas": 2100000,
+        "meta": 2000000,
+        "crescimento_percentual": 5.0,
+        "produtos_vendidos": 5450
+      }
+    ],
+    "vendas_por_regiao": [
+      {
+        "regiao": "São Paulo",
+        "vendas": 5250000,
+        "participacao": 32.5,
+        "crescimento": 8.2
+      },
+      {
+        "regiao": "Rio de Janeiro", 
+        "vendas": 3800000,
+        "participacao": 23.5,
+        "crescimento": 6.8
+      },
+      {
+        "regiao": "Minas Gerais",
+        "vendas": 2850000,
+        "participacao": 17.6,
+        "crescimento": 5.4
+      },
+      {
+        "regiao": "Paraná",
+        "vendas": 2200000,
+        "participacao": 13.6,
+        "crescimento": 7.1
+      },
+      {
+        "regiao": "Rio Grande do Sul",
+        "vendas": 2000000,
+        "participacao": 12.8,
+        "crescimento": 4.9
+      }
+    ],
+    "vendas_por_canal": [
+      {
+        "canal": "E-commerce",
+        "vendas": 6500000,
+        "participacao": 40.2,
+        "crescimento": 15.3
+      },
+      {
+        "canal": "Loja Física",
+        "vendas": 4800000,
+        "participacao": 29.7,
+        "crescimento": 2.1
+      },
+      {
+        "canal": "Marketplace",
+        "vendas": 3200000,
+        "participacao": 19.8,
+        "crescimento": 12.8
+      },
+      {
+        "canal": "Vendas B2B",
+        "vendas": 1200000,
+        "participacao": 7.4,
+        "crescimento": 8.9
+      },
+      {
+        "canal": "Mobile App",
+        "vendas": 500000,
+        "participacao": 2.9,
+        "crescimento": 28.4
+      }
+    ],
+    "produtos_top": [
+      {
+        "produto": "Smartphone Galaxy Pro",
+        "vendas": 2850000,
+        "unidades": 9500,
+        "categoria": "Smartphones"
+      },
+      {
+        "produto": "Notebook UltraBook 15\"",
+        "vendas": 2200000,
+        "unidades": 1800,
+        "categoria": "Laptops"
+      },
+      {
+        "produto": "Tablet Premium 12\"",
+        "vendas": 1650000,
+        "unidades": 3300,
+        "categoria": "Tablets"
+      },
+      {
+        "produto": "Smart TV 55\" 4K",
+        "vendas": 1450000,
+        "unidades": 1200,
+        "categoria": "Smart TVs"
+      },
+      {
+        "produto": "Fones Wireless Pro",
+        "vendas": 980000,
+        "unidades": 7800,
+        "categoria": "Acessórios"
+      }
+    ]
+  }
+}
